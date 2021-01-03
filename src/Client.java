@@ -14,9 +14,10 @@ public class Client {
             String command=keyboard.readLine();
 
             if (command.equals("QUIT")) break;
+            out.println(command);
 
             String serverResponse=inFromUser.readLine();
-            System.out.println(serverResponse);
+            System.out.println("Server response: " + serverResponse);
 
         }
         clientSocket.close();
