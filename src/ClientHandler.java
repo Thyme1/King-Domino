@@ -25,6 +25,7 @@ public class ClientHandler implements Runnable {
         int errorCounter=0;
         try {
             while (true) {
+                if (errorCounter == 250) break;
                 String clientSentence=in.readLine();
                 System.out.println(clientSentence);
                 if (!clientSentence.matches("LOGIN " + "[a-zA-Z0-9]*")) {

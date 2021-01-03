@@ -6,9 +6,12 @@ public class Client {
     public static void main(String argv[]) throws IOException {
 
         Socket clientSocket = new Socket("localhost", 6666);
-        BufferedReader inFromUser = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        ServerConnection serverConn = new ServerConnection(clientSocket);
+
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+        new Thread(serverConn).start();
 
         while(true) {
             String command=keyboard.readLine();
@@ -16,8 +19,7 @@ public class Client {
             if (command.equals("QUIT")) break;
             out.println(command);
 
-            String serverResponse=inFromUser.readLine();
-            System.out.println("Server response: " + serverResponse);
+
 
         }
         clientSocket.close();
