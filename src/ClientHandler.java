@@ -25,13 +25,16 @@ public class ClientHandler implements Runnable {
         int errorCounter=0;
         try {
             while (true) {
-                if (errorCounter == 250) break;
+                if (errorCounter == 100) break;
                 String clientSentence=in.readLine();
-                System.out.println(clientSentence);
                 if (!clientSentence.matches("LOGIN " + "[a-zA-Z0-9]*")) {
-                    out.println("ERROR\n");
+                    out.println("ERROR");
                     errorCounter++;
-                } else out.println("OK\n");
+                } else out.println("OK");
+
+                if (clients.size() == 4){
+                    out.println("START "+ );
+                }
             }
         } catch (IOException e) {
             out.println("ERROR\n");
