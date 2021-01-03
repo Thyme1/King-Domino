@@ -54,7 +54,11 @@ public class ClientHandler implements Runnable {
                 } else out.println("OK");
 
                 if (clients.size() == 4){
-                    out.println("START "+ first+" "+ first+" "+second+" "+third+" "+fourth );
+                    int index = 1;
+                    for (ClientHandler aClient : clients) {
+                        aClient.out.println("START " + index + " " + first + " " + second + " " + third + " " + fourth);
+                        index++;
+                    }
 
 
                 }
