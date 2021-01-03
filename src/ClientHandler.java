@@ -4,8 +4,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
-
 
 
 public class ClientHandler implements Runnable {
@@ -44,6 +44,16 @@ public class ClientHandler implements Runnable {
         String third = numbers.get(random.nextInt(numbers.size()));
         numbers.remove(third);
         String fourth = numbers.get(0);
+        int firstInt = Integer.parseInt(first);
+        int secondInt = Integer.parseInt(second);
+        int thirdInt = Integer.parseInt(third);
+        int fourthInt = Integer.parseInt(fourth);
+
+        ArrayList<String> dominos = new ArrayList<>();
+        dominos = addDominos(dominos);
+
+
+
         try {
             while (true) {
                 if (errorCounter == 100) break;
@@ -55,13 +65,35 @@ public class ClientHandler implements Runnable {
 
                 if (clients.size() == 4){
                     int index = 1;
-                    for (ClientHandler aClient : clients) {
-                        aClient.out.println("START " + index + " " + first + " " + second + " " + third + " " + fourth);
-                        index++;
+
+                    String domino1 = dominos.get(random.nextInt((dominos.size())));
+                    dominos.remove(domino1);
+                    String domino2 = dominos.get(random.nextInt((dominos.size())));
+                    dominos.remove(domino2);
+                    String domino3 = dominos.get(random.nextInt((dominos.size())));
+                    dominos.remove(domino3);
+                    String domino4 = dominos.get(random.nextInt((dominos.size())));
+                    dominos.remove(domino4);
+
+                    ArrayList<String> domToWrite = new ArrayList<>();
+                    domToWrite.add(domino1);
+                    domToWrite.add(domino2);
+                    domToWrite.add(domino3);
+                    domToWrite.add(domino4);
+                    Collections.sort(domToWrite);
+                    for(int j =0;j<dominos.size() ; j++){
+                        System.out.println(dominos.get(j));
                     }
 
 
+
+                    for (ClientHandler aClient : clients) {
+                        aClient.out.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " +domToWrite.get(0)+ " " +domToWrite.get(1)+ " " +domToWrite.get(2)+ " " +domToWrite.get(3));
+                        index++;
+                    }
                 }
+//               ClientHandler clientOne = clients.get(firstInt-1);
+
             }
         } catch (IOException e) {
             out.println("ERROR\n");
@@ -78,9 +110,19 @@ public class ClientHandler implements Runnable {
 
     }
 
+    private ArrayList<String> addDominos(ArrayList<String> dominos) {
+        for (int i=1; i < 49; i++) {
+            dominos.add(String.valueOf(i));
+        }
+        return dominos;
+    }
+
+
     private void outToAll(String msg){
         for (ClientHandler aClient : clients){
             aClient.out.println(msg);
         }
     }
+
 }
+
