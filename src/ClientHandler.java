@@ -16,14 +16,10 @@ public class ClientHandler implements Runnable {
 
 
     public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients) throws IOException {
-        this.client = clientSocket;
-        this.clients = clients;
-        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        out = new PrintWriter(client.getOutputStream(), true);
-
-
-
-
+        this.client=clientSocket;
+        this.clients=clients;
+        in=new BufferedReader(new InputStreamReader(client.getInputStream()));
+        out=new PrintWriter(client.getOutputStream(), true);
 
 
     }
@@ -31,30 +27,30 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         int errorCounter=0;
-        ArrayList<String> numbers = new ArrayList<>();
+        ArrayList<String> numbers=new ArrayList<>();
         numbers.add("1");
         numbers.add("2");
         numbers.add("3");
         numbers.add("4");
-        Random random = new Random();
-        String first = numbers.get(random.nextInt(numbers.size()));
+        Random random=new Random();
+        String first=numbers.get(random.nextInt(numbers.size()));
         numbers.remove(first);
-        String second = numbers.get(random.nextInt(numbers.size()));
+        String second=numbers.get(random.nextInt(numbers.size()));
         numbers.remove(second);
-        String third = numbers.get(random.nextInt(numbers.size()));
+        String third=numbers.get(random.nextInt(numbers.size()));
         numbers.remove(third);
-        String fourth = numbers.get(0);
-        int firstInt = Integer.parseInt(first);
-        int secondInt = Integer.parseInt(second);
-        int thirdInt = Integer.parseInt(third);
-        int fourthInt = Integer.parseInt(fourth);
+        String fourth=numbers.get(0);
+        int firstInt=Integer.parseInt(first);
+        int secondInt=Integer.parseInt(second);
+        int thirdInt=Integer.parseInt(third);
+        int fourthInt=Integer.parseInt(fourth);
 
-        ArrayList<String> dominos = new ArrayList<>();
-        dominos = addDominos(dominos);
-
+        ArrayList<String> dominos=new ArrayList<>();
+        dominos=addDominos(dominos);
 
 
         try {
+            out.println("CONNECT");
             while (true) {
                 if (errorCounter == 100) break;
                 String clientSentence=in.readLine();
@@ -63,36 +59,54 @@ public class ClientHandler implements Runnable {
                     errorCounter++;
                 } else out.println("OK");
 
-                if (clients.size() == 4){
-                    int index = 1;
+                if (clients.size() == 4) {
 
-                    String domino1 = dominos.get(random.nextInt((dominos.size())));
+                    int index=1;
+
+
+                    String domino1=dominos.get(random.nextInt((dominos.size())));
                     dominos.remove(domino1);
-                    String domino2 = dominos.get(random.nextInt((dominos.size())));
+                    String domino2=dominos.get(random.nextInt((dominos.size())));
                     dominos.remove(domino2);
-                    String domino3 = dominos.get(random.nextInt((dominos.size())));
+                    String domino3=dominos.get(random.nextInt((dominos.size())));
                     dominos.remove(domino3);
-                    String domino4 = dominos.get(random.nextInt((dominos.size())));
+                    String domino4=dominos.get(random.nextInt((dominos.size())));
                     dominos.remove(domino4);
 
-                    ArrayList<String> domToWrite = new ArrayList<>();
+                    ArrayList<String> domToWrite=new ArrayList<>();
                     domToWrite.add(domino1);
                     domToWrite.add(domino2);
                     domToWrite.add(domino3);
                     domToWrite.add(domino4);
                     Collections.sort(domToWrite);
-                    for(int j =0;j<dominos.size() ; j++){
-                        System.out.println(dominos.get(j));
-                    }
 
 
 
                     for (ClientHandler aClient : clients) {
-                        aClient.out.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " +domToWrite.get(0)+ " " +domToWrite.get(1)+ " " +domToWrite.get(2)+ " " +domToWrite.get(3));
+                        aClient.out.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
                         index++;
                     }
+
+                    ClientHandler clientOne = clients.get(firstInt-1);
+                    ClientHandler clientTwo = clients.get(secondInt-1);
+                    ClientHandler clientThree = clients.get(thirdInt-1);
+                    ClientHandler clientFour = clients.get(fourthInt-1);
+
+
+                    clientOne.out.println("YOUR CHOICE");
+                    String response1 = clientOne.in;
+                    System.out.println(clientSentence);
+                    if (!clientSentence.matches("CHOOSE " + "domino1|domino2|domino3|domino4")) {
+                        out.println("ERROR");
+                        errorCounter++;
+                    } else{
+                        out.println("OK");
+                        String chosenDomino = clientSentence.split(" ")[1];
+                        clientTwo.out.println("PLAYER CHOICE " + first + chosenDomino );
+
+                    }
                 }
-//               ClientHandler clientOne = clients.get(firstInt-1);
+
 
             }
         } catch (IOException e) {
@@ -118,8 +132,8 @@ public class ClientHandler implements Runnable {
     }
 
 
-    private void outToAll(String msg){
-        for (ClientHandler aClient : clients){
+    private void outToAll(String msg) {
+        for (ClientHandler aClient : clients) {
             aClient.out.println(msg);
         }
     }
