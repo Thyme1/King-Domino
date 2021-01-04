@@ -94,15 +94,15 @@ public class ClientHandler implements Runnable {
 
 
                     clientOne.out.println("YOUR CHOICE");
-                    String response1 = clientOne.in;
-                    System.out.println(clientSentence);
-                    if (!clientSentence.matches("CHOOSE " + "domino1|domino2|domino3|domino4")) {
+
+                    String secSentence=in.readLine();
+                    if (!secSentence.matches("CHOOSE " + "[a-zA-Z0-9]*")) {
                         out.println("ERROR");
                         errorCounter++;
                     } else{
                         out.println("OK");
-                        String chosenDomino = clientSentence.split(" ")[1];
-                        clientTwo.out.println("PLAYER CHOICE " + first + chosenDomino );
+                        String chosenDomino = secSentence.split(" ")[1];
+                        clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino );
 
                     }
                 }
