@@ -129,7 +129,7 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (!secSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS
+            if (!secSentence.matches("CHOOSE " + "[0-4][0-9]")) { //CHANGE LATER TO MATCH ONLY DOMINOS
                 clientOne.out.println("ERROR" + secSentence);
                 errorCounter++;
             } else {
@@ -148,7 +148,7 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (!secSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
+            if (!secSentence.matches("CHOOSE " + "[0-4][0-9]")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
                 clientTwo.out.println("ERROR" + secSentence);
                 errorCounter++;
             } else {
@@ -166,7 +166,7 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (!secSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
+            if (!secSentence.matches("CHOOSE " + "[0-4][0-9]")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
                 clientThree.out.println("ERROR" + secSentence);
                 errorCounter++;
             } else {
@@ -184,7 +184,7 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (!secSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
+            if (!secSentence.matches("CHOOSE " + "[0-4][0-9]")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
                 clientFour.out.println("ERROR" + secSentence);
                 errorCounter++;
             } else {
@@ -194,6 +194,8 @@ public class FinalClientHandler implements Runnable {
                 clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
                 clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
             }
+
+
 
 
         } catch (IOException e) {
@@ -224,4 +226,3 @@ public class FinalClientHandler implements Runnable {
 
 
 }
-
