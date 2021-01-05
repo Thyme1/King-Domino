@@ -85,23 +85,14 @@ public class FinalClientHandler implements Runnable {
             int fourthInt=Integer.parseInt(fourth);
 
             ArrayList<String> dominos=new ArrayList<>();
-            dominos=addDominos(dominos);
-
-            String domino1=dominos.get(random.nextInt((dominos.size())));
-            dominos.remove(domino1);
-            String domino2=dominos.get(random.nextInt((dominos.size())));
-            dominos.remove(domino2);
-            String domino3=dominos.get(random.nextInt((dominos.size())));
-            dominos.remove(domino3);
-            String domino4=dominos.get(random.nextInt((dominos.size())));
-            dominos.remove(domino4);
-
+            dominos = addDominos(dominos);
             ArrayList<String> domToWrite=new ArrayList<>();
-            domToWrite.add(domino1);
-            domToWrite.add(domino2);
-            domToWrite.add(domino3);
-            domToWrite.add(domino4);
-            Collections.sort(domToWrite);
+            domToWrite = pickDominos(dominos, random);
+            dominos = removePickedDominos(dominos, domToWrite);
+
+
+
+
 
 
             int index=1;
@@ -195,6 +186,14 @@ public class FinalClientHandler implements Runnable {
                 clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
             }
 
+            domToWrite = pickDominos(dominos, random);
+            dominos = removePickedDominos(dominos, domToWrite);
+
+            out1.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+            out2.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+            out3.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+            out4.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+
 
 
 
@@ -217,11 +216,37 @@ public class FinalClientHandler implements Runnable {
         }
     }
 
+    private ArrayList<String> removePickedDominos(ArrayList<String> dominos, ArrayList<String> domToWrite) {
+        for(int i=0;i<4;i++){
+            dominos.remove(domToWrite.get(i));
+        }
+        return dominos;
+    }
+
     private ArrayList<String> addDominos(ArrayList<String> dominos) {
         for (int i=1; i < 49; i++) {
             dominos.add(String.valueOf(i));
         }
         return dominos;
+    }
+
+    private ArrayList<String> pickDominos(ArrayList<String> dominos, Random random){
+        String domino1=dominos.get(random.nextInt((dominos.size())));
+        dominos.remove(domino1);
+        String domino2=dominos.get(random.nextInt((dominos.size())));
+        dominos.remove(domino2);
+        String domino3=dominos.get(random.nextInt((dominos.size())));
+        dominos.remove(domino3);
+        String domino4=dominos.get(random.nextInt((dominos.size())));
+        dominos.remove(domino4);
+
+        ArrayList<String> domToWrite=new ArrayList<>();
+        domToWrite.add(domino1);
+        domToWrite.add(domino2);
+        domToWrite.add(domino3);
+        domToWrite.add(domino4);
+        Collections.sort(domToWrite);
+        return domToWrite;
     }
 
 
