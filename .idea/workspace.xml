@@ -4,6 +4,7 @@
     <list default="true" id="3632be8e-7b8b-4509-ae24-0d796777a27e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ClientHandler.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +80,8 @@
       <workItem from="1607066740287" duration="63000" />
       <workItem from="1609670600092" duration="25947000" />
       <workItem from="1609758441010" duration="2889000" />
-      <workItem from="1609793279587" duration="553000" />
+      <workItem from="1609793279587" duration="4956000" />
+      <workItem from="1609837904866" duration="1703000" />
     </task>
     <servers />
   </component>
@@ -99,22 +101,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1609695117708" />
-    <state width="914" height="279" key="GridCell.Tab.0.bottom" timestamp="1609793956614">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1609839602554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1609793956614" />
-    <state width="914" height="279" key="GridCell.Tab.0.center" timestamp="1609793956614">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1609839602554" />
+    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1609839602554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1609793956614" />
-    <state width="914" height="279" key="GridCell.Tab.0.left" timestamp="1609793956614">
+    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1609839602554" />
+    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1609839602554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1609793956614" />
-    <state width="914" height="279" key="GridCell.Tab.0.right" timestamp="1609793956614">
+    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1609839602554" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1609839602554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="914" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1609793956614" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1609839602554" />
     <state width="916" height="368" key="GridCell.Tab.1.bottom" timestamp="1609714723502">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -143,5 +145,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609695347499" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Client.java</url>
+          <line>4</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

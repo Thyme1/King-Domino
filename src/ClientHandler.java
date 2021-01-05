@@ -94,17 +94,66 @@ public class ClientHandler implements Runnable {
 
 
                     clientOne.out.println("YOUR CHOICE");
-
                     String secSentence=in.readLine();
-                    if (!secSentence.matches("CHOOSE " + "[a-zA-Z0-9]*")) {
+                    System.out.println(secSentence);
+                    if (!secSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS
                         out.println("ERROR");
                         errorCounter++;
                     } else{
                         out.println("OK");
                         String chosenDomino = secSentence.split(" ")[1];
                         clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino );
+                        clientThree.out.println("PLAYER CHOICE " + first + " " + chosenDomino );
+                        clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino );
 
                     }
+
+                    clientTwo.out.println("YOUR CHOICE");
+                    String thirdSentence=in.readLine();
+                    System.out.println(thirdSentence);
+                    if (!thirdSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
+                        out.println("ERROR");
+                        errorCounter++;
+                    } else{
+                        out.println("OK");
+                        String chosenDomino = thirdSentence.split( " ")[1];
+                        clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino );
+                        clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino );
+                        clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino );
+                    }
+
+                    clientThree.out.println("YOUR CHOICE");
+                    String fourthSentence=in.readLine();
+                    System.out.println(fourthSentence);
+                    if (!fourthSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
+                        out.println("ERROR");
+                        errorCounter++;
+                    } else{
+                        out.println("OK");
+                        String chosenDomino = fourthSentence.split(" ")[1];
+                        clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino );
+                        clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino );
+                        clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino );
+                    }
+
+                    clientTwo.out.println("YOUR CHOICE");
+                    String fifthSentence=in.readLine();
+                    if (!fifthSentence.matches("CHOOSE " + "8")) { //CHANGE LATER TO MATCH ONLY DOMINOS - one taken
+                        out.println("ERROR");
+                        errorCounter++;
+                    } else{
+                        out.println("OK");
+                        String chosenDomino = fifthSentence.split(" ")[1];
+                        clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino );
+                        clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino );
+                        clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino );
+                    }
+
+
+
+
+
+
                 }
 
 
