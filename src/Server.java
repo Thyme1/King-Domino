@@ -11,7 +11,7 @@ public class Server {
     private static ArrayList<ClientHandler> clients=new ArrayList<>();
     private static ArrayList<Socket> clientsSockets=new ArrayList<>();
     private static ExecutorService pool=Executors.newFixedThreadPool(5);
-    final static Logger logger=Logger.getLogger(Server.class);
+
 
     public static void main(String argv[]) throws IOException {
         ServerSocket welcomeSocket=new ServerSocket(6666);
@@ -30,7 +30,10 @@ public class Server {
                 pool.execute(finalClientThread);
             }
 
+
+
         }
+
     }
 
 

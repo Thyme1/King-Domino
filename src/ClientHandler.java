@@ -1,3 +1,5 @@
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,6 +17,8 @@ public class ClientHandler implements Runnable {
     private ArrayList<ClientHandler> clients;
 
 
+
+
     public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients) throws IOException {
         this.client=clientSocket;
         this.clients=clients;
@@ -24,7 +28,9 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+
         out.println("CONNECT");
+
 
     }
 

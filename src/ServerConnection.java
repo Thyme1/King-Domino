@@ -1,3 +1,5 @@
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,6 +9,7 @@ import java.net.Socket;
 public class ServerConnection implements Runnable {
     private Socket server;
     private BufferedReader in;
+    final static Logger logger=Logger.getLogger(Server.class);
 
 
     public ServerConnection(Socket s) throws IOException {
@@ -24,6 +27,7 @@ public class ServerConnection implements Runnable {
         try {
             while (true) {
                 serverResponse=in.readLine();
+                logger.info(serverResponse);
                 if (serverResponse == null) break;
                 System.out.println("Server response: " + serverResponse);
             }
