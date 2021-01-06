@@ -27,7 +27,7 @@ public class ServerConnection implements Runnable {
         try {
             while (true) {
                 serverResponse=in.readLine();
-                logger.info(serverResponse);
+                logger.info("SERVER: " + serverResponse);
                 if (serverResponse == null) break;
                 System.out.println("Server response: " + serverResponse);
             }

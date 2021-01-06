@@ -21,11 +21,12 @@ public class FinalClientHandler implements Runnable {
     private ArrayList<ClientHandler> clients;
     private ArrayList<Socket> clientsSocket;
 
+    static int errorCounter=0;
 
     public FinalClientHandler(Socket client, ArrayList<ClientHandler> clients, ArrayList<Socket> clientsSocket) throws IOException {
         this.client=client;
         this.clients=clients;
-        this.clientsSocket = clientsSocket;
+        this.clientsSocket=clientsSocket;
         in1=new BufferedReader(new InputStreamReader(clientsSocket.get(0).getInputStream()));
         out1=new PrintWriter(clientsSocket.get(0).getOutputStream(), true);
 
@@ -44,7 +45,7 @@ public class FinalClientHandler implements Runnable {
     public void run() {
 
         try {
-            int errorCounter=0;
+
             String clientSentence1=in1.readLine();
             if (!clientSentence1.matches("LOGIN " + "[a-zA-Z0-9]*")) {
                 out1.println("ERROR here");
@@ -83,18 +84,20 @@ public class FinalClientHandler implements Runnable {
             int secondInt=Integer.parseInt(second);
             int thirdInt=Integer.parseInt(third);
             int fourthInt=Integer.parseInt(fourth);
+            String x;
+            String y;
+            String orientation;
+            ArrayList<String> move=new ArrayList<>();
+            ArrayList<Integer> domPickedLastRoundInt = new ArrayList<>();
 
             ArrayList<String> dominos=new ArrayList<>();
-            dominos = addDominos(dominos);
+            dominos=addDominos(dominos);
             ArrayList<String> domToWrite;
-            domToWrite = pickDominos(dominos, random);
-            dominos = removePickedDominos(dominos, domToWrite);
-            ArrayList<String> domPickedLastRound = new ArrayList<>();
-
-
-
-
-
+            domToWrite=pickDominos(dominos, random);
+            dominos=removePickedDominos(dominos, domToWrite);
+            ArrayList<String> domPickedLastRound=new ArrayList<>();
+            ArrayList<ClientHandler> clientsChange = new ArrayList<>();
+            Collections.sort(domToWrite);
 
 
             int index=1;
@@ -122,7 +125,7 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2)) || secSentence.equals("CHOOSE " + domToWrite.get(3)) ) { //CHANGE LATER TO MATCH ONLY DOMINOS
+            if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2)) || secSentence.equals("CHOOSE " + domToWrite.get(3))) { //CHANGE LATER TO MATCH ONLY DOMINOS
                 clientOne.out.println("OK");
                 String chosenDomino=secSentence.split(" ")[1];
                 domPickedLastRound.add(chosenDomino);
@@ -142,7 +145,7 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2)) ) {
+            if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2))) {
                 clientTwo.out.println("OK");
                 String chosenDomino=secSentence.split(" ")[1];
                 domPickedLastRound.add(chosenDomino);
@@ -203,17 +206,115 @@ public class FinalClientHandler implements Runnable {
             }
 
 
-            domToWrite = pickDominos(dominos, random);
-            dominos = removePickedDominos(dominos, domToWrite);
+            for (int i=0; i < 10; i++) {
 
-            out1.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
-            out2.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
-            out3.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
-            out4.println("ROUND "+ domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+                domToWrite=pickDominos(dominos, random);
+                Collections.sort(domToWrite);
+                dominos=removePickedDominos(dominos, domToWrite);
+                System.out.println(domPickedLastRound);
+
+                domPickedLastRoundInt = null;
+
+                for(i=0;i<3;i++){
+                    domPickedLastRoundInt.add(Integer.parseInt(domPickedLastRound.get(i)));
+                }
+
+                out1.println("ROUND " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+                out2.println("ROUND " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+                out3.println("ROUND " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+                out4.println("ROUND " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+
+                firstInt=domPickedLastRoundInt.indexOf(Collections.min(domPickedLastRoundInt)) + 1;
+                domPickedLastRoundInt.remove(Collections.min(domPickedLastRoundInt));
+                domPickedLastRoundInt.add(firstInt-1, 50);
+
+                secondInt=domPickedLastRoundInt.indexOf(Collections.min(domPickedLastRoundInt)) + 1;
+                domPickedLastRoundInt.remove(Collections.min(domPickedLastRoundInt));
+                domPickedLastRoundInt.add(secondInt-1, 50);
+
+                thirdInt=domPickedLastRoundInt.indexOf(Collections.min(domPickedLastRoundInt)) + 1;
+                domPickedLastRoundInt.remove(Collections.min(domPickedLastRoundInt));
+                domPickedLastRoundInt.add(thirdInt-1, 50);
+
+                fourthInt=domPickedLastRoundInt.indexOf(Collections.min(domPickedLastRoundInt)) + 1 ;
+                domPickedLastRoundInt.remove(Collections.min(domPickedLastRoundInt)) ;
+                domPickedLastRoundInt.add(fourthInt-1, 50);
+
+                clientsChange.add(clientOne);
+                clientsChange.add(clientTwo);
+                clientsChange.add(clientThree);
+                clientsChange.add(clientFour);
 
 
+                clientOne=clientsChange.get(firstInt - 1);
+                clientTwo=clientsChange.get(secondInt - 1);
+                clientThree=clientsChange.get(thirdInt - 1);
+                clientFour=clientsChange.get(fourthInt- 1);
 
 
+                move=YourMove(clientOne);
+                x=move.get(0);
+                y=move.get(1);
+                orientation=move.get(2);
+                clientTwo.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientThree.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientFour.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+
+                String chosenDomino=YourChoice(clientOne, domToWrite);
+                domToWrite.remove(chosenDomino);
+                clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                clientThree.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+
+
+                move=YourMove(clientTwo);
+                x=move.get(0);
+                y=move.get(1);
+                orientation=move.get(2);
+                clientOne.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientThree.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientFour.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+
+                chosenDomino=YourChoice(clientTwo, domToWrite);
+                domToWrite.remove(chosenDomino);
+                clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+
+                move=YourMove(clientThree);
+                x=move.get(0);
+                y=move.get(1);
+                orientation=move.get(2);
+                clientTwo.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientOne.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientFour.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+
+                chosenDomino=YourChoice(clientThree, domToWrite);
+                domToWrite.remove(chosenDomino);
+                clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+
+                move=YourMove(clientFour);
+                x=move.get(0);
+                y=move.get(1);
+                orientation=move.get(2);
+                clientTwo.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientOne.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+                clientThree.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
+
+                chosenDomino=YourChoice(clientFour, domToWrite);
+                domToWrite.remove(chosenDomino);
+                clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+
+            }
+
+            out1.println("ROUND");
+            out2.println("ROUND");
+            out3.println("ROUND");
+            out4.println("ROUND");
 
 
         } catch (IOException e) {
@@ -235,8 +336,71 @@ public class FinalClientHandler implements Runnable {
         }
     }
 
+    private String YourChoice(ClientHandler clientOne, ArrayList<String> domToWrite) {
+        clientOne.out.println("YOUR CHOICE");
+        String secSentence=null;
+        try {
+            secSentence=clientOne.in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2)) || secSentence.equals("CHOOSE " + domToWrite.get(3))) { //CHANGE LATER TO MATCH ONLY DOMINOS
+            clientOne.out.println("OK");
+            String chosenDomino=secSentence.split(" ")[1];
+            return chosenDomino;
+        } else {
+            clientOne.out.println("ERROR " + secSentence);
+            errorCounter++;
+            return secSentence;
+        }
+    }
+
+    private ArrayList<String> YourMove(ClientHandler clientOne) {
+        ArrayList<String> result=new ArrayList<>();
+        clientOne.out.println("YOUR MOVE");
+        String secSentence=null;
+        try {
+            secSentence=clientOne.in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        String x_coor=secSentence.split(" ")[1];
+        String y_coor=secSentence.split(" ")[2];
+        String orientation=secSentence.split(" ")[3];
+
+        int x_coorInt=Integer.parseInt(x_coor);
+        int y_coorInt=Integer.parseInt(y_coor);
+        int orientationInt=Integer.parseInt(orientation);
+
+        if (x_coorInt >= -100 && x_coorInt <= 100 && y_coorInt >= -100 && y_coorInt <= 100 && (orientationInt == 0 || orientationInt == 90 || orientationInt == 180 || orientationInt == 270)) {
+            if (secSentence.equals("MOVE " + x_coor + " " + y_coor + " " + orientation)) {
+                clientOne.out.println("OK");
+                result.add(x_coor);
+                result.add(y_coor);
+                result.add(orientation);
+                return result;
+
+
+            } else {
+                clientOne.out.println("ERROR " + secSentence);
+                errorCounter++;
+                return result;
+            }
+
+        } else {
+            clientOne.out.println("ERROR " + secSentence);
+            errorCounter++;
+            return result;
+        }
+
+
+    }
+
     private ArrayList<String> removePickedDominos(ArrayList<String> dominos, ArrayList<String> domToWrite) {
-        for(int i=0;i<4;i++){
+        for (int i=0; i < 4; i++) {
             dominos.remove(domToWrite.get(i));
         }
         return dominos;
@@ -249,7 +413,7 @@ public class FinalClientHandler implements Runnable {
         return dominos;
     }
 
-    private ArrayList<String> pickDominos(ArrayList<String> dominos, Random random){
+    private ArrayList<String> pickDominos(ArrayList<String> dominos, Random random) {
         String domino1=dominos.get(random.nextInt((dominos.size())));
         dominos.remove(domino1);
         String domino2=dominos.get(random.nextInt((dominos.size())));

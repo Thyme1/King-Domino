@@ -19,7 +19,7 @@ public class Client {
 
         while (true) {
             String command=keyboard.readLine();
-            logger.info(command);
+            logger.info("CLIENT " + command);
 
 
 
