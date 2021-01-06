@@ -89,6 +89,7 @@ public class FinalClientHandler implements Runnable {
             String orientation;
             ArrayList<String> move=new ArrayList<>();
             ArrayList<Integer> domPickedLastRoundInt = new ArrayList<>();
+            ArrayList<Integer> domToWriteInt = new ArrayList<>();
 
             ArrayList<String> dominos=new ArrayList<>();
             dominos=addDominos(dominos);
@@ -97,19 +98,23 @@ public class FinalClientHandler implements Runnable {
             dominos=removePickedDominos(dominos, domToWrite);
             ArrayList<String> domPickedLastRound=new ArrayList<>();
             ArrayList<ClientHandler> clientsChange = new ArrayList<>();
-            Collections.sort(domToWrite);
+
+            for(int i=0; i<domToWrite.size();i++){
+                domToWriteInt.add(Integer.valueOf(domToWrite.get(i)));
+            }
+            Collections.sort(domToWriteInt);
 
 
             int index=1;
 
 
-            out1.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+            out1.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
             index++;
-            out2.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+            out2.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
             index++;
-            out3.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+            out3.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
             index++;
-            out4.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWrite.get(0) + " " + domToWrite.get(1) + " " + domToWrite.get(2) + " " + domToWrite.get(3));
+            out4.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
 
 
             ClientHandler clientOne=clients.get(firstInt - 1);
@@ -125,11 +130,15 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2)) || secSentence.equals("CHOOSE " + domToWrite.get(3))) { //CHANGE LATER TO MATCH ONLY DOMINOS
+            if (secSentence.equals("CHOOSE " + domToWriteInt.get(0)) || secSentence.equals("CHOOSE " + domToWriteInt.get(1)) || secSentence.equals("CHOOSE " + domToWriteInt.get(2)) || secSentence.equals("CHOOSE " + domToWriteInt.get(3))) { //CHANGE LATER TO MATCH ONLY DOMINOS
                 clientOne.out.println("OK");
                 String chosenDomino=secSentence.split(" ")[1];
                 domPickedLastRound.add(chosenDomino);
+                System.out.println(domToWrite);
+                System.out.println(domToWriteInt);
                 domToWrite.remove(chosenDomino);
+                domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
+
                 clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
                 clientThree.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
@@ -145,11 +154,15 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2))) {
+            if (secSentence.equals("CHOOSE " + domToWriteInt.get(0)) || secSentence.equals("CHOOSE " + domToWriteInt.get(1)) || secSentence.equals("CHOOSE " + domToWriteInt.get(2))) {
                 clientTwo.out.println("OK");
                 String chosenDomino=secSentence.split(" ")[1];
                 domPickedLastRound.add(chosenDomino);
+                System.out.println(domToWrite);
+                System.out.println(domToWriteInt);
+                domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
                 domToWrite.remove(chosenDomino);
+
                 clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                 clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
@@ -167,11 +180,14 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1))) {
+            if (secSentence.equals("CHOOSE " + domToWriteInt.get(0)) || secSentence.equals("CHOOSE " + domToWriteInt.get(1))) {
                 clientThree.out.println("OK");
                 String chosenDomino=secSentence.split(" ")[1];
                 domPickedLastRound.add(chosenDomino);
+                System.out.println(domToWrite);
+                System.out.println(domToWriteInt);
                 domToWrite.remove(chosenDomino);
+                domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
                 clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                 clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
@@ -190,10 +206,13 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            if (secSentence.equals("CHOOSE " + domToWrite.get(0))) {
+            if (secSentence.equals("CHOOSE " + domToWriteInt.get(0))) {
                 clientFour.out.println("OK");
                 String chosenDomino=secSentence.split(" ")[1];
                 domPickedLastRound.add(chosenDomino);
+                System.out.println(domToWrite);
+                System.out.println(domToWriteInt);
+                domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
                 domToWrite.remove(chosenDomino);
                 clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
                 clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
@@ -210,10 +229,11 @@ public class FinalClientHandler implements Runnable {
 
                 domToWrite=pickDominos(dominos, random);
                 Collections.sort(domToWrite);
+
                 dominos=removePickedDominos(dominos, domToWrite);
                 System.out.println(domPickedLastRound);
 
-                domPickedLastRoundInt = null;
+
 
                 for(i=0;i<3;i++){
                     domPickedLastRoundInt.add(Integer.parseInt(domPickedLastRound.get(i)));
@@ -308,6 +328,10 @@ public class FinalClientHandler implements Runnable {
                 clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
                 clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
                 clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+
+                for(i=0;i<3;i++){
+                    domPickedLastRoundInt.remove(0);
+                }
 
             }
 
