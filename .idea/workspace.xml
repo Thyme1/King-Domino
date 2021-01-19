@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3632be8e-7b8b-4509-ae24-0d796777a27e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/log.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FinalClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FinalClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FinalClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FinalClientHandler.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +36,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -114,7 +112,7 @@
       <workItem from="1609932146211" duration="19326000" />
       <workItem from="1609969757197" duration="8000" />
       <workItem from="1611002743243" duration="7732000" />
-      <workItem from="1611045624182" duration="9028000" />
+      <workItem from="1611045624182" duration="9745000" />
     </task>
     <servers />
   </component>
@@ -141,22 +139,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1609969763630" />
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1611078917904">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom" timestamp="1611079668306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611078917904" />
-    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1611078917904">
+    <state width="1877" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611079668306" />
+    <state width="1877" height="279" key="GridCell.Tab.0.center" timestamp="1611079668305">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611078917904" />
-    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1611078917904">
+    <state width="1877" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611079668305" />
+    <state width="1877" height="279" key="GridCell.Tab.0.left" timestamp="1611079668305">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611078917904" />
-    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1611078917904">
+    <state width="1877" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611079668305" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right" timestamp="1611079668306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611078917904" />
+    <state width="1877" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611079668306" />
     <state width="1877" height="364" key="GridCell.Tab.1.bottom" timestamp="1611058358107">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -181,10 +179,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1609876257523" />
-    <state x="690" y="286" key="extract.method.dialog" timestamp="1609935756036">
+    <state x="1008" y="228" key="extract.method.dialog" timestamp="1611079533441">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="286" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1609935756036" />
+    <state x="1008" y="228" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611079533441" />
     <state x="342" y="140" key="new project wizard" timestamp="1606819666939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

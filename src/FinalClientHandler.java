@@ -46,26 +46,8 @@ public class FinalClientHandler implements Runnable {
 
         try {
 
-            String clientSentence1=in1.readLine();
-            if (!clientSentence1.matches("LOGIN " + "[a-zA-Z0-9]*")) {
-                out1.println("ERROR here");
-                errorCounter++;
-            } else out1.println("OK");
-            String clientSentence2=in2.readLine();
-            if (!clientSentence2.matches("LOGIN " + "[a-zA-Z0-9]*")) {
-                out2.println("ERROR here");
-                errorCounter++;
-            } else out2.println("OK");
-            String clientSentence3=in3.readLine();
-            if (!clientSentence3.matches("LOGIN " + "[a-zA-Z0-9]*")) {
-                out3.println("ERROR here");
-                errorCounter++;
-            } else out3.println("OK");
-            String clientSentence4=in4.readLine();
-            if (!clientSentence4.matches("LOGIN " + "[a-zA-Z0-9]*")) {
-                out4.println("ERROR here");
-                errorCounter++;
-            } else out4.println("OK");
+            login(in1, out1, in2, out2);
+            login(in3, out3, in4, out4);
 
             ArrayList<String> numbers=new ArrayList<>();
             numbers.add("1");
@@ -87,7 +69,7 @@ public class FinalClientHandler implements Runnable {
             String x;
             String y;
             String orientation;
-            ArrayList<String> move=new ArrayList<>();
+            ArrayList<String> move;
             ArrayList<Integer> domPickedLastRoundInt = new ArrayList<>();
             ArrayList<Integer> domToWriteInt = new ArrayList<>();
 
@@ -108,13 +90,9 @@ public class FinalClientHandler implements Runnable {
             int index=1;
 
 
-            out1.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+            index=startPrint(first, second, third, fourth, domToWriteInt, index, out1, out2);
             index++;
-            out2.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
-            index++;
-            out3.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
-            index++;
-            out4.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+            index=startPrint(first, second, third, fourth, domToWriteInt, index, out3, out4);
 
 
             ClientHandler clientOne=clients.get(firstInt - 1);
@@ -320,7 +298,7 @@ public class FinalClientHandler implements Runnable {
                 System.out.println(fourthInt);
 
 
-                move=YourMove(clientOne);
+                move=yourMove(clientOne);
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -328,7 +306,7 @@ public class FinalClientHandler implements Runnable {
                 clientThree.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
                 clientFour.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
 
-                String chosenDomino=YourChoice(clientOne, domToWrite);
+                String chosenDomino=yourChoice(clientOne, domToWrite);
                 domPickedLastRound.add(chosenDomino);
                 domToWrite.remove(chosenDomino);
                 clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
@@ -336,7 +314,7 @@ public class FinalClientHandler implements Runnable {
                 clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
 
 
-                move=YourMove(clientTwo);
+                move=yourMove(clientTwo);
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -344,14 +322,14 @@ public class FinalClientHandler implements Runnable {
                 clientThree.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
                 clientFour.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
 
-                chosenDomino=YourChoice(clientTwo, domToWrite);
+                chosenDomino=yourChoice(clientTwo, domToWrite);
                 domPickedLastRound.add(chosenDomino);
                 domToWrite.remove(chosenDomino);
                 clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                 clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
 
-                move=YourMove(clientThree);
+                move=yourMove(clientThree);
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -359,14 +337,14 @@ public class FinalClientHandler implements Runnable {
                 clientOne.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
                 clientFour.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
 
-                chosenDomino=YourChoice(clientThree, domToWrite);
+                chosenDomino=yourChoice(clientThree, domToWrite);
                 domPickedLastRound.add(chosenDomino);
                 domToWrite.remove(chosenDomino);
                 clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                 clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
 
-                move=YourMove(clientFour);
+                move=yourMove(clientFour);
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -374,7 +352,7 @@ public class FinalClientHandler implements Runnable {
                 clientOne.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
                 clientThree.out.println("PLAYER MOVE " + x + " " + y + " " + orientation);
 
-                chosenDomino=YourChoice(clientFour, domToWrite);
+                chosenDomino=yourChoice(clientFour, domToWrite);
                 domPickedLastRound.add(chosenDomino);
                 domToWrite.remove(chosenDomino);
                 clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
@@ -419,7 +397,27 @@ public class FinalClientHandler implements Runnable {
         }
     }
 
-    private String YourChoice(ClientHandler clientOne, ArrayList<String> domToWrite) {
+    private void login(BufferedReader in1, PrintWriter out1, BufferedReader in2, PrintWriter out2) throws IOException {
+        String clientSentence1=in1.readLine();
+        if (!clientSentence1.matches("LOGIN " + "[a-zA-Z0-9]*")) {
+            out1.println("ERROR here");
+            errorCounter++;
+        } else out1.println("OK");
+        String clientSentence2=in2.readLine();
+        if (!clientSentence2.matches("LOGIN " + "[a-zA-Z0-9]*")) {
+            out2.println("ERROR here");
+            errorCounter++;
+        } else out2.println("OK");
+    }
+
+    private int startPrint(String first, String second, String third, String fourth, ArrayList<Integer> domToWriteInt, int index, PrintWriter out1, PrintWriter out2) {
+        out1.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+        index++;
+        out2.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+        return index;
+    }
+
+    private String yourChoice(ClientHandler clientOne, ArrayList<String> domToWrite) {
         clientOne.out.println("YOUR CHOICE");
         String secSentence=null;
         try {
@@ -439,7 +437,7 @@ public class FinalClientHandler implements Runnable {
         }
     }
 
-    private ArrayList<String> YourMove(ClientHandler clientOne) {
+    private ArrayList<String> yourMove(ClientHandler clientOne) {
         ArrayList<String> result=new ArrayList<>();
         clientOne.out.println("YOUR MOVE");
         String secSentence=null;
