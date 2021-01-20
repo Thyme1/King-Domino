@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -206,6 +207,34 @@ public class FinalClientHandler implements Runnable {
             ArrayList<String> order = new ArrayList<>();
 
 
+            String[][] board1 = new String[201][201];
+            String[][] board2 = new String[201][201];
+            String[][] board3 = new String[201][201];
+            String[][] board4 = new String[201][201];
+
+            board1 = fillArrayWithZeos(board1);
+            board2 = fillArrayWithZeos(board2);
+            board3 = fillArrayWithZeos(board3);
+            board4 = fillArrayWithZeos(board4);
+
+            board1[100][100] = "X";
+            board2[100][100] = "X";
+            board3[100][100] = "X";
+            board4[100][100] = "X";
+
+//            for (int row = 0; row < board1.length; row++)//Cycles through rows
+//            {
+//                for (int col = 0; col < board1[row].length; col++)//Cycles through columns
+//                {
+//                    System.out.printf(board1[row][col]); //change the %5d to however much space you want
+//                }
+//                System.out.println(); //Makes a new row
+//            }
+
+
+
+
+
 
             for (int i=0; i < 10; i++) {
 
@@ -395,6 +424,11 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String[][] fillArrayWithZeos(String[][] arr) {
+        Arrays.stream(arr).forEach(a -> Arrays.fill(a, "0"));
+        return arr;
     }
 
     private void login(BufferedReader in1, PrintWriter out1, BufferedReader in2, PrintWriter out2) throws IOException {
