@@ -22,7 +22,8 @@ public class FinalClientHandler implements Runnable {
     private ArrayList<ClientHandler> clients;
     private ArrayList<Socket> clientsSocket;
 
-    static int errorCounter=0;
+
+
 
     public FinalClientHandler(Socket client, ArrayList<ClientHandler> clients, ArrayList<Socket> clientsSocket) throws IOException {
         this.client=client;
@@ -46,10 +47,7 @@ public class FinalClientHandler implements Runnable {
     public void run() {
 
         try {
-
-            login(in1, out1, in2, out2);
-            login(in3, out3, in4, out4);
-
+            int[] errorCounter = {0,0,0,0};
             ArrayList<String> numbers=new ArrayList<>();
             numbers.add("1");
             numbers.add("2");
@@ -67,6 +65,12 @@ public class FinalClientHandler implements Runnable {
             int secondInt=Integer.parseInt(second);
             int thirdInt=Integer.parseInt(third);
             int fourthInt=Integer.parseInt(fourth);
+
+
+            login(in1, out1, in2, out2);
+            login(in3, out3, in4, out4);
+
+
             String x;
             String y;
             String orientation;
@@ -123,7 +127,7 @@ public class FinalClientHandler implements Runnable {
                 clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
             } else {
                 clientOne.out.println("ERROR " + secSentence);
-                errorCounter++;
+                errorCounter[0] += 1;
             }
 
             clientTwo.out.println("YOUR CHOICE");
@@ -148,7 +152,7 @@ public class FinalClientHandler implements Runnable {
 
             } else {
                 clientTwo.out.println("ERROR" + secSentence);
-                errorCounter++;
+                errorCounter[1]+=1;
 
             }
 
@@ -175,7 +179,7 @@ public class FinalClientHandler implements Runnable {
 
 
                 clientThree.out.println("ERROR " + secSentence);
-                errorCounter++;
+                errorCounter[2]+=1;
 
             }
 
@@ -201,7 +205,7 @@ public class FinalClientHandler implements Runnable {
             } else {
 
                 clientFour.out.println("ERROR" + secSentence);
-                errorCounter++;
+                errorCounter[3]+=1;
             }
 
             ArrayList<String> order = new ArrayList<>();
@@ -222,6 +226,12 @@ public class FinalClientHandler implements Runnable {
             board3[100][100] = "X";
             board4[100][100] = "X";
 
+            ArrayList<String[][]> boards = new ArrayList();
+            boards.add(board1);
+            boards.add(board2);
+            boards.add(board3);
+            boards.add(board4);
+
 //            for (int row = 0; row < board1.length; row++)//Cycles through rows
 //            {
 //                for (int col = 0; col < board1[row].length; col++)//Cycles through columns
@@ -230,6 +240,17 @@ public class FinalClientHandler implements Runnable {
 //                }
 //                System.out.println(); //Makes a new row
 //            }
+
+//            String[][] playerBoard = new String[4][2];
+//            playerBoard[0][0] = first;
+//            playerBoard[1][0] = second;
+//            playerBoard[2][0] = third;
+//            playerBoard[3][0] = fourth;
+//            playerBoard[0][1] = board1;
+//            playerBoard[1][2] = board2;
+//            playerBoard[2][3] = board3;
+//            playerBoard[3][4] = board4;
+
 
 
 
@@ -327,7 +348,7 @@ public class FinalClientHandler implements Runnable {
                 System.out.println(fourthInt);
 
 
-                move=yourMove(clientOne);
+                move=yourMove(clientOne, boards.get(Integer.valueOf(first)-1) );
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -343,7 +364,7 @@ public class FinalClientHandler implements Runnable {
                 clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
 
 
-                move=yourMove(clientTwo);
+                move=yourMove(clientTwo, boards.get(Integer.valueOf(second) - 1));
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -358,7 +379,7 @@ public class FinalClientHandler implements Runnable {
                 clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
 
-                move=yourMove(clientThree);
+                move=yourMove(clientThree, boards.get(Integer.valueOf(third) - 1));
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -373,7 +394,7 @@ public class FinalClientHandler implements Runnable {
                 clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
 
-                move=yourMove(clientFour);
+                move=yourMove(clientFour, boards.get(Integer.valueOf(fourth) - 1));
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -431,17 +452,13 @@ public class FinalClientHandler implements Runnable {
         return arr;
     }
 
-    private void login(BufferedReader in1, PrintWriter out1, BufferedReader in2, PrintWriter out2) throws IOException {
+    private void login(BufferedReader in1, PrintWriter out1, String clientNumber) throws IOException {
         String clientSentence1=in1.readLine();
         if (!clientSentence1.matches("LOGIN " + "[a-zA-Z0-9]*")) {
             out1.println("ERROR here");
-            errorCounter++;
+            errorCounter[Integer.valueOf(clientNumber)-1]+=1;
         } else out1.println("OK");
-        String clientSentence2=in2.readLine();
-        if (!clientSentence2.matches("LOGIN " + "[a-zA-Z0-9]*")) {
-            out2.println("ERROR here");
-            errorCounter++;
-        } else out2.println("OK");
+
     }
 
     private int startPrint(String first, String second, String third, String fourth, ArrayList<Integer> domToWriteInt, int index, PrintWriter out1, PrintWriter out2) {
@@ -471,7 +488,7 @@ public class FinalClientHandler implements Runnable {
         }
     }
 
-    private ArrayList<String> yourMove(ClientHandler clientOne) {
+    private ArrayList<String> yourMove(ClientHandler clientOne, String[][] board) {
         ArrayList<String> result=new ArrayList<>();
         clientOne.out.println("YOUR MOVE");
         String secSentence=null;
