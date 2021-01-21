@@ -541,10 +541,42 @@ public class FinalClientHandler implements Runnable {
 
     private boolean catchMoveMistake(int x, int y, int orientation, String[][] board, String clientNumber) {
 
-        
         if(!board[x][y].equals("0")){
-            return true;
+            return true;}
+        else if (orientation == 0){
+            if(!board[x][y+1].equals("0")){
+                return true; }
+            else{
+                return !(board[x - 1][y].equals("0") && board[x + 2][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 1][y + 1].equals("0"));
+            }
         }
+        else if (orientation == 90){
+            if(!board[x+1][y].equals("0")){
+                return true; }
+            else{
+                return !(board[x - 1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x+1][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x+2][y].equals("0"));
+            }
+        }
+        else if (orientation == 180){
+            if(!board[x][y-1].equals("0")){
+                return true; }
+            else{
+                return !(board[x][y+1].equals("0") && board[x-1][y].equals("0") && board[x+1][y].equals("0") && board[x+1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x][y-2].equals("0"));
+            }
+        }
+        else if (orientation == 270){
+            if(!board[x-1][y].equals("0")){
+                return true; }
+            else{
+                return !(board[x+1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x-1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x-2][y].equals("0"));
+            }
+        }
+
+
+
+
+
+
         else
             if (!(board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0"))){
                 if()
