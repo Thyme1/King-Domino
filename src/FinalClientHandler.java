@@ -539,10 +539,19 @@ public class FinalClientHandler implements Runnable {
 
     }
 
-    private boolean catchMoveMistake(int x_coorInt, int y_coorInt, int orientationInt, String[][] board, String clientNumber) {
-        
+    private boolean catchMoveMistake(int x, int y, int orientation, String[][] board, String clientNumber) {
 
-        return false;
+        
+        if(!board[x][y].equals("0")){
+            return true;
+        }
+        else
+            if (!(board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0"))){
+                if()
+            }
+            else
+                return true;
+
     }
 
     private ArrayList<String> removePickedDominos(ArrayList<String> dominos, ArrayList<String> domToWrite) {
