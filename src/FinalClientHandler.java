@@ -352,7 +352,7 @@ public class FinalClientHandler implements Runnable {
                 System.out.println(fourthInt);
 
 
-                move=yourMove(clientOne, boards.get(Integer.parseInt(first)-1), first );
+                move=yourMove(clientOne, boards.get(Integer.parseInt(first)-1), first);
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -512,7 +512,7 @@ public class FinalClientHandler implements Runnable {
         int orientationInt=Integer.parseInt(orientation);
 
         if (x_coorInt >= -100 && x_coorInt <= 100 && y_coorInt >= -100 && y_coorInt <= 100 && (orientationInt == 0 || orientationInt == 90 || orientationInt == 180 || orientationInt == 270)) {
-            if (catchMoveMistake(x_coorInt, y_coorInt, orientationInt, board, clientNumber)){
+            if (catchMoveMistake(x_coorInt, y_coorInt, orientationInt, board)){
                 errorCounter[Integer.parseInt(clientNumber)-1]+=1;
                 return yourMove(clientOne, board, clientNumber);
             }
@@ -539,7 +539,12 @@ public class FinalClientHandler implements Runnable {
 
     }
 
-    private boolean catchMoveMistake(int x, int y, int orientation, String[][] board, String clientNumber) {
+    private boolean catchMoveMistake(int x, int y, int orientation, String[][] board) {
+        x += 100;
+        y += 100;
+        
+
+
 
         if(!board[x][y].equals("0")){
             return true;}
@@ -571,6 +576,7 @@ public class FinalClientHandler implements Runnable {
                 return !(board[x+1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x-1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x-2][y].equals("0"));
             }
         }
+        else
         return false;
     }
 
