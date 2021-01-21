@@ -512,7 +512,11 @@ public class FinalClientHandler implements Runnable {
         int orientationInt=Integer.parseInt(orientation);
 
         if (x_coorInt >= -100 && x_coorInt <= 100 && y_coorInt >= -100 && y_coorInt <= 100 && (orientationInt == 0 || orientationInt == 90 || orientationInt == 180 || orientationInt == 270)) {
-            if (secSentence.equals("MOVE " + x_coor + " " + y_coor + " " + orientation)) {
+            if (catchMoveMistake(x_coorInt, y_coorInt, orientationInt, board, clientNumber)){
+                errorCounter[Integer.parseInt(clientNumber)-1]+=1;
+                return yourMove(clientOne, board, clientNumber);
+            }
+            else if (secSentence.equals("MOVE " + x_coor + " " + y_coor + " " + orientation)) {
                 clientOne.out.println("OK");
                 result.add(x_coor);
                 result.add(y_coor);
@@ -522,17 +526,23 @@ public class FinalClientHandler implements Runnable {
 
             } else {
                 clientOne.out.println("ERROR " + secSentence);
-                errorCounter[Integer.parseInt(clientNumber)-1]+=1;;
-                return result;
+                errorCounter[Integer.parseInt(clientNumber)-1]+=1;
+                return yourMove(clientOne, board, clientNumber);
             }
 
         } else {
             clientOne.out.println("ERROR " + secSentence);
-            errorCounter[Integer.parseInt(clientNumber)-1]+=1;;
-            return result;
+            errorCounter[Integer.parseInt(clientNumber)-1]+=1;
+            return yourMove(clientOne, board, clientNumber);
         }
 
 
+    }
+
+    private boolean catchMoveMistake(int x_coorInt, int y_coorInt, int orientationInt, String[][] board, String clientNumber) {
+        
+
+        return false;
     }
 
     private ArrayList<String> removePickedDominos(ArrayList<String> dominos, ArrayList<String> domToWrite) {
