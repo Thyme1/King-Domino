@@ -571,19 +571,7 @@ public class FinalClientHandler implements Runnable {
                 return !(board[x+1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x-1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x-2][y].equals("0"));
             }
         }
-
-
-
-
-
-
-        else
-            if (!(board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0"))){
-                if()
-            }
-            else
-                return true;
-
+        return false;
     }
 
     private ArrayList<String> removePickedDominos(ArrayList<String> dominos, ArrayList<String> domToWrite) {
