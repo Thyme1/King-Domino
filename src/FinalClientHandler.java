@@ -26,6 +26,7 @@ public class FinalClientHandler implements Runnable {
 
 
 
+
     public FinalClientHandler(Socket client, ArrayList<ClientHandler> clients, ArrayList<Socket> clientsSocket) throws IOException {
         this.client=client;
         this.clients=clients;
@@ -48,6 +49,62 @@ public class FinalClientHandler implements Runnable {
     public void run() {
 
         try {
+
+
+            String[] brick1 = {"s", "s"};
+            String[] brick2 = {"s", "s"};
+            String[] brick3 = {"f", "f"};
+            String[] brick4 = {"f", "f"};
+            String[] brick5 = {"f", "f"};
+            String[] brick6 = {"f", "f"};
+            String[] brick7 = {"w", "w"};
+            String[] brick8 = {"w", "w"};
+            String[] brick9 = {"w", "w"};
+            String[] brick10 = {"g", "g"};
+            String[] brick11 = {"g", "g"};
+            String[] brick12 = {"b", "b"};
+            String[] brick13 = {"s", "f"};
+            String[] brick14 = {"s", "w"};
+            String[] brick15 = {"s", "g"};
+            String[] brick16 = {"s", "b"};
+            String[] brick17 = {"f", "w"};
+            String[] brick18 = {"f", "g"};
+            String[] brick19 = {"s1", "f"};
+            String[] brick20 = {"s1", "w"};
+            String[] brick21 = {"s1", "g"};
+            String[] brick22 = {"s1", "b"};
+            String[] brick23 = {"s1", "m"};
+            String[] brick24 = {"f1", "s"};
+            String[] brick25 = {"f1", "s"};
+            String[] brick26 = {"f1", "s"};
+            String[] brick27 = {"f1", "s"};
+            String[] brick28 = {"f1", "w"};
+            String[] brick29 = {"f1", "g"};
+            String[] brick30 = {"w1", "s"};
+            String[] brick31 = {"w1", "s"};
+            String[] brick32 = {"w1", "f"};
+            String[] brick33 = {"w1", "f"};
+            String[] brick34 = {"w1", "f"};
+            String[] brick35 = {"w1", "f"};
+            String[] brick36 = {"s", "g1"};
+            String[] brick37 = {"w", "g1"};
+            String[] brick38 = {"s", "b1"};
+            String[] brick39 = {"g", "b1"};
+            String[] brick40 = {"m1", "s"};
+            String[] brick41 = {"s", "g2"};
+            String[] brick42 = {"w", "g2"};
+            String[] brick43 = {"s", "b2"};
+            String[] brick44 = {"g", "b2"};
+            String[] brick45 = {"m2", "s"};
+            String[] brick46 = {"b", "m2"};
+            String[] brick47 = {"b", "m2"};
+            String[] brick48 = {"s", "m3"};
+
+
+
+            String[][] bricks = { brick1, brick2, brick3, brick4, brick5, brick6, brick7, brick8, brick9, brick10, brick11, brick12, brick13, brick14, brick15, brick16, brick17, brick18, brick19, brick20, brick21, brick22, brick23, brick24, brick25, brick26, brick27, brick28, brick29, brick30, brick31, brick32, brick33, brick34, brick35, brick36, brick37, brick38, brick39, brick40, brick41, brick42, brick43, brick44, brick45, brick46, brick47, brick48};
+
+
 
             ArrayList<String> numbers=new ArrayList<>();
             numbers.add("1");
@@ -513,7 +570,6 @@ public class FinalClientHandler implements Runnable {
 
         if (x_coorInt >= -100 && x_coorInt <= 100 && y_coorInt >= -100 && y_coorInt <= 100 && (orientationInt == 0 || orientationInt == 90 || orientationInt == 180 || orientationInt == 270)) {
             if (catchMoveMistake(x_coorInt, y_coorInt, orientationInt, board)){
-                System.out.println("tutaj bylem");
                 errorCounter[Integer.parseInt(clientNumber)-1]+=1;
                 return yourMove(clientOne, board, clientNumber);
             }
@@ -522,6 +578,7 @@ public class FinalClientHandler implements Runnable {
                 result.add(x_coor);
                 result.add(y_coor);
                 result.add(orientation);
+                //board[x_coorInt][y_coorInt] = bricks[[][]]
                 return result;
 
 
