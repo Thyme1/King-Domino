@@ -513,6 +513,7 @@ public class FinalClientHandler implements Runnable {
 
         if (x_coorInt >= -100 && x_coorInt <= 100 && y_coorInt >= -100 && y_coorInt <= 100 && (orientationInt == 0 || orientationInt == 90 || orientationInt == 180 || orientationInt == 270)) {
             if (catchMoveMistake(x_coorInt, y_coorInt, orientationInt, board)){
+                System.out.println("tutaj bylem");
                 errorCounter[Integer.parseInt(clientNumber)-1]+=1;
                 return yourMove(clientOne, board, clientNumber);
             }
@@ -544,7 +545,7 @@ public class FinalClientHandler implements Runnable {
         y += 100;
         
 
-
+        System.out.println(!board[x][y].equals("0") + " !board[x][y].equals(\"0\")");
 
         if(!board[x][y].equals("0")){
             return true;}
@@ -552,28 +553,28 @@ public class FinalClientHandler implements Runnable {
             if(!board[x][y+1].equals("0")){
                 return true; }
             else{
-                return !(board[x - 1][y].equals("0") && board[x + 2][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 1][y + 1].equals("0"));
+                return (board[x - 1][y].equals("0") && board[x + 2][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 1][y + 1].equals("0"));
             }
         }
         else if (orientation == 90){
             if(!board[x+1][y].equals("0")){
                 return true; }
             else{
-                return !(board[x - 1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x+1][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x+2][y].equals("0"));
+                return (board[x - 1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x+1][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x+2][y].equals("0"));
             }
         }
         else if (orientation == 180){
             if(!board[x][y-1].equals("0")){
                 return true; }
             else{
-                return !(board[x][y+1].equals("0") && board[x-1][y].equals("0") && board[x+1][y].equals("0") && board[x+1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x][y-2].equals("0"));
+                return (board[x][y+1].equals("0") && board[x-1][y].equals("0") && board[x+1][y].equals("0") && board[x+1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x][y-2].equals("0"));
             }
         }
         else if (orientation == 270){
             if(!board[x-1][y].equals("0")){
                 return true; }
             else{
-                return !(board[x+1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x-1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x-2][y].equals("0"));
+                return (board[x+1][y].equals("0") && board[x][y-1].equals("0") && board[x][y+1].equals("0") && board[x-1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x-2][y].equals("0"));
             }
         }
         else
