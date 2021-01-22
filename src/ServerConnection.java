@@ -29,7 +29,7 @@ public class ServerConnection implements Runnable {
                 serverResponse=in.readLine();
                 logger.info("SERVER: " + serverResponse);
                 if (serverResponse == null) break;
-                System.out.println("Server response: " + serverResponse);
+                System.out.println(serverResponse);
             }
         } catch (IOException e) {
             e.printStackTrace();
