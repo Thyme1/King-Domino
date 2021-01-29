@@ -399,7 +399,7 @@ public class FinalClientHandler implements Runnable {
                 System.out.println(thirdInt);
                 System.out.println(fourthInt);
 
-                move=yourMove(clientOne, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt-1));
+                move=yourMove(clientOne, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1));
                 String chosenDomino=yourChoice(clientOne, domToWrite, first);
 
                 x=move.get(0);
@@ -429,7 +429,7 @@ public class FinalClientHandler implements Runnable {
                 clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
 
 
-                move=yourMove(clientTwo, boards.get(Integer.parseInt(second) - 1), third, bricks, bricksPickedLastRound.get(secondInt-1));
+                move=yourMove(clientTwo, boards.get(Integer.parseInt(second) - 1), third, bricks, bricksPickedLastRound.get(secondInt - 1));
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -455,7 +455,7 @@ public class FinalClientHandler implements Runnable {
                 clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
 
-                move=yourMove(clientThree, boards.get(Integer.parseInt(third) - 1), third, bricks, bricksPickedLastRound.get(thirdInt-1));
+                move=yourMove(clientThree, boards.get(Integer.parseInt(third) - 1), third, bricks, bricksPickedLastRound.get(thirdInt - 1));
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -481,7 +481,7 @@ public class FinalClientHandler implements Runnable {
                 clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                 clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
 
-                move=yourMove(clientFour, boards.get(Integer.parseInt(fourth) - 1), fourth, bricks, bricksPickedLastRound.get(fourthInt-1));
+                move=yourMove(clientFour, boards.get(Integer.parseInt(fourth) - 1), fourth, bricks, bricksPickedLastRound.get(fourthInt - 1));
                 x=move.get(0);
                 y=move.get(1);
                 orientation=move.get(2);
@@ -524,6 +524,11 @@ public class FinalClientHandler implements Runnable {
             out3.println("ROUND");
             out4.println("ROUND");
 
+            int board1points = countPoints(board1);
+            int board2points = countPoints(board2);
+            int board3points = countPoints(board3);
+            int board4points = countPoints(board4);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -542,6 +547,24 @@ public class FinalClientHandler implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    private int countPoints(String[][] board1) {
+        for (int row=0; row < board1.length; row++)//Cycles through rows
+        {
+            for (int col=0; col < board1[row].length; col++)//Cycles through columns
+            {
+                if(board1[row][col].matches("G*"));
+                int[] coords=new int[]{row, col};
+                ArrayList<int[]> listG = new ArrayList<>();
+                listG.add(coords);
+
+
+
+            }
+            System.out.println(); //Makes a new row
+        }
+
     }
 
     private String[][] fillArrayWithZeos(String[][] arr) {
