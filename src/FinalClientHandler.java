@@ -550,11 +550,23 @@ public class FinalClientHandler implements Runnable {
     }
 
     private int countPoints(String[][] board1) {
+
+        int pointsG = countPointsForType("g", board1);
+        int pointsF =countPointsForType("f", board1);
+        int pointsS =countPointsForType("s", board1);
+        int pointsB =countPointsForType("b", board1);
+        int pointsW =countPointsForType("w", board1);
+        int pointsM =countPointsForType("m", board1);
+
+
+    }
+
+    private int countPointsForType(String fieldType, String[][] board1) {
         for (int row=0; row < board1.length; row++)//Cycles through rows
         {
             for (int col=0; col < board1[row].length; col++)//Cycles through columns
             {
-                if(board1[row][col].matches("G*"));
+                if(board1[row][col].matches(fieldType + "*"));
                 int[] coords=new int[]{row, col};
                 ArrayList<int[]> listG = new ArrayList<>();
                 listG.add(coords);
@@ -564,7 +576,7 @@ public class FinalClientHandler implements Runnable {
             }
             System.out.println(); //Makes a new row
         }
-
+        return 0;
     }
 
     private String[][] fillArrayWithZeos(String[][] arr) {
