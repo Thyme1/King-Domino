@@ -562,23 +562,37 @@ public class FinalClientHandler implements Runnable {
     }
 
     private int countPointsForType(String fieldType, String[][] board1) {
-        ArrayList<int[]> listG=new ArrayList<>();
-        ArrayList<int[]> listh=new ArrayList<>();
-        for (int row=0; row < board1.length; row++)//Cycles through rows
-        {
-            for (int col=0; col < board1[row].length; col++)//Cycles through columns
-            {
-                if (board1[row][col].matches(fieldType + "*")) ;
-                int[] coords=new int[]{row, col};
-                listG.add(coords); //lista ze wszystkimi indeksami g
-            }
-        }
-        if(board1[listG.get(0)[0]][listG.get(0)[1]])
-        potentialNeighbours = listG.get(0)[0];
-        for(int i=1;i<listG.size()-1;i++){
-            listh.add(listG.get(i));
-        }
+        String[][] board1Copy=new String[201][201];
+        for(int i=0; i<board1.length; i++)
+            for(int j=0; j<board1[i].length; j++)
+                board1[i][j]=board1Copy[i][j];
+
+        setLabels(fieldType, board1Copy);
+
         return 0;
+    }
+
+    private void setLabels(String fieldType, String[][] board1Copy) {
+        int m=2;
+        for(int y=0;y<201;y++)
+            for(int x=0;x<201;x++)
+                if(board1Copy[x][y].matches(fieldType + "*")) compLabel(x,y,m++,board1Copy,fieldType);
+    }
+
+    private void compLabel(int i, int j, int m, String[][] board1Copy, String fieldType) {
+        if (board1Copy[i][j].matches(fieldType + "*")){
+            board1Copy = setPixel(board1Copy,i,j,m);
+            compLabel(i-1,j,m,board1Copy,fieldType);
+            compLabel(i+1,j,m,board1Copy,fieldType);
+            compLabel(i,j-1,m,board1Copy,fieldType);
+            compLabel(i,j+1,m,board1Copy,fieldType);
+        }
+
+    }
+
+    private String[][] setPixel(String[][] board1Copy, int i, int j, int m) {
+        board1Copy[i][j] =String.valueOf(m);
+        return board1Copy;
     }
 
     private String[][] fillArrayWithZeos(String[][] arr) {
