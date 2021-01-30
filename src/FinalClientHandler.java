@@ -524,10 +524,10 @@ public class FinalClientHandler implements Runnable {
             out3.println("ROUND");
             out4.println("ROUND");
 
-            int board1points = countPoints(board1);
-            int board2points = countPoints(board2);
-            int board3points = countPoints(board3);
-            int board4points = countPoints(board4);
+            int board1points=countPoints(board1);
+            int board2points=countPoints(board2);
+            int board3points=countPoints(board3);
+            int board4points=countPoints(board4);
 
 
         } catch (IOException e) {
@@ -551,30 +551,32 @@ public class FinalClientHandler implements Runnable {
 
     private int countPoints(String[][] board1) {
 
-        int pointsG = countPointsForType("g", board1);
-        int pointsF =countPointsForType("f", board1);
-        int pointsS =countPointsForType("s", board1);
-        int pointsB =countPointsForType("b", board1);
-        int pointsW =countPointsForType("w", board1);
-        int pointsM =countPointsForType("m", board1);
+        int pointsG=countPointsForType("g", board1);
+        int pointsF=countPointsForType("f", board1);
+        int pointsS=countPointsForType("s", board1);
+        int pointsB=countPointsForType("b", board1);
+        int pointsW=countPointsForType("w", board1);
+        int pointsM=countPointsForType("m", board1);
 
-
+        return (pointsG + pointsF + pointsS + pointsB + pointsW + pointsM);
     }
 
     private int countPointsForType(String fieldType, String[][] board1) {
+        ArrayList<int[]> listG=new ArrayList<>();
+        ArrayList<int[]> listh=new ArrayList<>();
         for (int row=0; row < board1.length; row++)//Cycles through rows
         {
             for (int col=0; col < board1[row].length; col++)//Cycles through columns
             {
-                if(board1[row][col].matches(fieldType + "*"));
+                if (board1[row][col].matches(fieldType + "*")) ;
                 int[] coords=new int[]{row, col};
-                ArrayList<int[]> listG = new ArrayList<>();
-                listG.add(coords);
-
-
-
+                listG.add(coords); //lista ze wszystkimi indeksami g
             }
-            System.out.println(); //Makes a new row
+        }
+        if(board1[listG.get(0)[0]][listG.get(0)[1]])
+        potentialNeighbours = listG.get(0)[0];
+        for(int i=1;i<listG.size()-1;i++){
+            listh.add(listG.get(i));
         }
         return 0;
     }
