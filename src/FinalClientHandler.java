@@ -563,35 +563,77 @@ public class FinalClientHandler implements Runnable {
 
     private int countPointsForType(String fieldType, String[][] board1) {
         String[][] board1Copy=new String[201][201];
-        for(int i=0; i<board1.length; i++)
-            for(int j=0; j<board1[i].length; j++)
+        for (int i=0; i < board1.length; i++)
+            for (int j=0; j < board1[i].length; j++)
                 board1[i][j]=board1Copy[i][j];
 
-        setLabels(fieldType, board1Copy);
+        int result=setLabels(fieldType, board1Copy);
 
-        return 0;
+        return result;
     }
 
-    private void setLabels(String fieldType, String[][] board1Copy) {
+    private int setLabels(String fieldType, String[][] board1Copy) {
         int m=2;
-        for(int y=0;y<201;y++)
-            for(int x=0;x<201;x++)
-                if(board1Copy[x][y].matches(fieldType + "*")) compLabel(x,y,m++,board1Copy,fieldType);
+        for (int y=0; y < 201; y++)
+            for (int x=0; x < 201; x++) {
+                if (board1Copy[x][y].matches(fieldType)) {
+                    board1Copy=compLabel(x, y, m++, board1Copy, fieldType);
+                }
+            }
+        for (int y=0; y < 201; y++)
+            for (int x=0; x < 201; x++) {
+                if (board1Copy[x][y].matches(fieldType + "*")) {
+                    board1Copy=compLabelExtra(x, y, board1Copy, fieldType, m);
+                }
+            }
+
+        return m;
     }
 
-    private void compLabel(int i, int j, int m, String[][] board1Copy, String fieldType) {
-        if (board1Copy[i][j].matches(fieldType + "*")){
-            board1Copy = setPixel(board1Copy,i,j,m);
-            compLabel(i-1,j,m,board1Copy,fieldType);
-            compLabel(i+1,j,m,board1Copy,fieldType);
-            compLabel(i,j-1,m,board1Copy,fieldType);
-            compLabel(i,j+1,m,board1Copy,fieldType);
+    private String[][] compLabelExtra(int x, int y, String[][] board1Copy, String fieldType,int m) {
+        ArrayList<Integer> values = new ArrayList<>();
+        for(int i=1;i<=m;i++){
+            for (int j=0; j < 201; j++)
+                for (int k=0; k < 201; k++) {
+                    if(board1Copy[j][k].equals(String.valueOf(m))){
+                        values.add(m);
+                    }
+
+                }
+
+        }
+        if(board1Copy[x-1][y].matches("[1-9]*")){
+
+        }
+        if(board1Copy[x+1][y].matches("[1-9]*")){
+
+        }
+        if(board1Copy[x][y-1].matches("[1-9]*")){
+
         }
 
+        if(board1Copy[x][y+1].matches("[1-9]*")){
+
+        }
+
+
+    }
+
+
+    private String[][] compLabel(int i, int j, int m, String[][] board1Copy, String fieldType) {
+
+        if (board1Copy[i][j].matches(fieldType)) {
+            board1Copy=setPixel(board1Copy, i, j, m);
+            compLabel(i - 1, j, m, board1Copy, fieldType);
+            compLabel(i + 1, j, m, board1Copy, fieldType);
+            compLabel(i, j - 1, m, board1Copy, fieldType);
+            compLabel(i, j + 1, m, board1Copy, fieldType);
+        }
+        return board1Copy;
     }
 
     private String[][] setPixel(String[][] board1Copy, int i, int j, int m) {
-        board1Copy[i][j] =String.valueOf(m);
+        board1Copy[i][j]=String.valueOf(m);
         return board1Copy;
     }
 
