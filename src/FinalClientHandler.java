@@ -562,18 +562,31 @@ public class FinalClientHandler implements Runnable {
     }
 
     private int countPointsForType(String fieldType, String[][] board1) {
+        ArrayList<ArrayList<Integer>> result=new ArrayList<>();
         String[][] board1Copy=new String[201][201];
         for (int i=0; i < board1.length; i++)
             for (int j=0; j < board1[i].length; j++)
                 board1[i][j]=board1Copy[i][j];
 
-        int result=setLabels(fieldType, board1Copy);
+        result=setLabels(fieldType, board1Copy);
 
-        return result;
+        int m = result.get(2).get(0);
+        ArrayList<Integer> numOfLabels = result.get(0);
+        ArrayList<Integer> valueOfLabels = result.get(1);
+        int points=0;
+
+        for(int j=1;j<=m;j++){
+            points += numOfLabels.get(j-1) * valueOfLabels.get(j-1);
+        }
+
+        return points;
+
     }
 
-    private int setLabels(String fieldType, String[][] board1Copy) {
-        int m=2;
+    private ArrayList<ArrayList<Integer>> setLabels(String fieldType, String[][] board1Copy) {
+        ArrayList<ArrayList<Integer>> result=new ArrayList<>();
+        ArrayList<Integer> mValue=new ArrayList<>();
+        int m=0;
         for (int y=0; y < 201; y++)
             for (int x=0; x < 201; x++) {
                 if (board1Copy[x][y].matches(fieldType)) {
@@ -583,11 +596,13 @@ public class FinalClientHandler implements Runnable {
         for (int y=0; y < 201; y++)
             for (int x=0; x < 201; x++) {
                 if (board1Copy[x][y].matches(fieldType + "*")) {
-                    board1Copy=compLabelExtra(x, y, board1Copy, m);
+                    result=compLabelExtra(x, y, board1Copy, m);
                 }
             }
+        mValue.add(m);
+        result.add(mValue);
 
-        return m;
+        return result;
     }
 
     private ArrayList<ArrayList<Integer>> compLabelExtra(int x, int y, String[][] board1Copy, int m) {
