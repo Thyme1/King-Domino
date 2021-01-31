@@ -583,38 +583,48 @@ public class FinalClientHandler implements Runnable {
         for (int y=0; y < 201; y++)
             for (int x=0; x < 201; x++) {
                 if (board1Copy[x][y].matches(fieldType + "*")) {
-                    board1Copy=compLabelExtra(x, y, board1Copy, fieldType, m);
+                    board1Copy=compLabelExtra(x, y, board1Copy, m);
                 }
             }
 
         return m;
     }
 
-    private String[][] compLabelExtra(int x, int y, String[][] board1Copy, String fieldType,int m) {
-        ArrayList<Integer> values = new ArrayList<>();
-        for(int i=1;i<=m;i++){
+    private ArrayList<ArrayList<Integer>> compLabelExtra(int x, int y, String[][] board1Copy, int m) {
+        ArrayList<Integer> values=new ArrayList<>();
+        ArrayList<Integer> multiplyBy=new ArrayList<>();
+        ArrayList<ArrayList<Integer>> result=new ArrayList<>();
+
+
+        int numberOfMs=0;
+        for (int i=1; i <= m; i++) {
             for (int j=0; j < 201; j++)
                 for (int k=0; k < 201; k++) {
-                    if(board1Copy[j][k].equals(String.valueOf(m))){
-                        values.add(m);
+                    if (board1Copy[j][k].equals(String.valueOf(m))) {
+                        values.add(m - 1, numberOfMs++);
                     }
-
                 }
+            if (board1Copy[x - 1][y].matches(String.valueOf(m))) {
+                multiplyBy.add(m - 1, board1Copy[x - 1][y].length());
+            }
+            if (board1Copy[x + 1][y].matches(String.valueOf(m))) {
+                multiplyBy.add(m - 1, board1Copy[x + 1][y].length());
+
+            }
+            if (board1Copy[x][y - 1].matches(String.valueOf(m))) {
+                multiplyBy.add(m - 1, board1Copy[x][y - 1].length());
+
+            }
+
+            if (board1Copy[x][y + 1].matches(String.valueOf(m))) {
+                multiplyBy.add(m - 1, board1Copy[x][y + 1].length());
+
+            }
 
         }
-        if(board1Copy[x-1][y].matches("[1-9]*")){
-
-        }
-        if(board1Copy[x+1][y].matches("[1-9]*")){
-
-        }
-        if(board1Copy[x][y-1].matches("[1-9]*")){
-
-        }
-
-        if(board1Copy[x][y+1].matches("[1-9]*")){
-
-        }
+        result.add(values);
+        result.add(multiplyBy);
+        return result;
 
 
     }
