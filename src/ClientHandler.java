@@ -30,6 +30,7 @@ public class ClientHandler implements Runnable {
     public void run() {
 
         out.println("CONNECT");
+        out.println("Test");
 
 
     }
