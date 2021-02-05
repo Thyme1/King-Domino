@@ -2,6 +2,7 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.*;
+import java.util.Random;
 
 
 public class Client {
@@ -10,21 +11,26 @@ public class Client {
 
         Socket clientSocket=new Socket("localhost", 6666);
         ServerConnection serverConn=new ServerConnection(clientSocket);
+        int x= 2;
+
+        String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random r = new Random();
+        char login = abc.charAt(r.nextInt(abc.length()));
 
 
-        BufferedReader keyboard=new BufferedReader(new InputStreamReader(System.in));
+        String sentence= "LOGIN " + login + '\n';
+        InputStream targetStream = new ByteArrayInputStream(sentence.getBytes());
+
+
+
+        BufferedReader in=new BufferedReader(new InputStreamReader(targetStream));
         PrintWriter out=new PrintWriter(clientSocket.getOutputStream(), true);
+
+        out.println(sentence);
 
         new Thread(serverConn).start();
 
-        while (true) {
-            String command=keyboard.readLine();
-            logger.info("CLIENT " + command);
-
-
-
-            if (command.equals("QUIT")) break;
-            out.println(command);
+        while (x>0) {
 
 
         }
