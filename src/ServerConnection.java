@@ -1,9 +1,6 @@
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ServerConnection implements Runnable {
@@ -17,31 +14,14 @@ public class ServerConnection implements Runnable {
         in=new BufferedReader(new InputStreamReader(server.getInputStream()));
 
 
+
     }
 
     @Override //responsible for handling inputs from the server
     public void run() {
 
 
-        String serverResponse=null;
-        try {
-            while (true) {
-                serverResponse=in.readLine();
-                logger.info("SERVER: " + serverResponse);
-                if (serverResponse == null) break;
-                System.out.println(serverResponse);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
 
     }
-
-
 }
