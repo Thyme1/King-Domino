@@ -65,7 +65,7 @@ public class Client {
                System.out.println(sentence);
 
                if (sentence.equals("YOUR MOVE")) {
-                   out.println("MOVE " + "0 " + y + " 0");
+                   out.println("MOVE " + "0 " + y + " 90");
                    sentence=inFromServer.readLine();
                    System.out.println(sentence);
                    y+=2;
@@ -91,7 +91,7 @@ public class Client {
             System.out.println(sentence);
 
             if (sentence.equals("YOUR MOVE")) {
-                out.println("MOVE " + "0 " + y + " 0");
+                out.println("MOVE " + "0 " + y + " 90");
                 sentence=inFromServer.readLine();
                 System.out.println(sentence);
 

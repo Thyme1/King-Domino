@@ -674,16 +674,16 @@ public class FinalClientHandler implements Runnable {
 
                 board[x_coorInt][y_coorInt]=bricks[chosenDomino - 1][0];
                 if (orientation.equals("0")) {
-                    board[x_coorInt][y_coorInt + 1]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt+1][y_coorInt]=bricks[chosenDomino - 1][1];
                 }
                 if (orientation.equals("90")) {
-                    board[x_coorInt + 1][y_coorInt]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt][y_coorInt+1]=bricks[chosenDomino - 1][1];
                 }
                 if (orientation.equals("180")) {
-                    board[x_coorInt][y_coorInt - 1]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt-1][y_coorInt]=bricks[chosenDomino - 1][1];
                 }
                 if (orientation.equals("270")) {
-                    board[x_coorInt - 1][y_coorInt]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt][y_coorInt-1]=bricks[chosenDomino - 1][1];
                 }
 
                 return result;
@@ -711,25 +711,25 @@ public class FinalClientHandler implements Runnable {
 
         if (!board[x][y].equals("0")) {
             return true;
-        } else if (orientation == 0) {
+        } else if (orientation == 90) {
             if (!board[x][y + 1].equals("0")) {
                 return true;
             } else {
                 return (board[x - 1][y].equals("0") && board[x + 2][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 1][y + 1].equals("0"));
             }
-        } else if (orientation == 90) {
+        } else if (orientation == 0) {
             if (!board[x + 1][y].equals("0")) {
                 return true;
             } else {
                 return (board[x - 1][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 2][y].equals("0"));
             }
-        } else if (orientation == 180) {
+        } else if (orientation == 270) {
             if (!board[x][y - 1].equals("0")) {
                 return true;
             } else {
                 return (board[x][y + 1].equals("0") && board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x + 1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x][y - 2].equals("0"));
             }
-        } else if (orientation == 270) {
+        } else if (orientation == 180) {
             if (!board[x - 1][y].equals("0")) {
                 return true;
             } else {
