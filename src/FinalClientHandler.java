@@ -117,10 +117,10 @@ public class FinalClientHandler implements Runnable {
             int fourthInt=Integer.parseInt(fourth);
 
 
-            login(in1, out1, first);
-            login(in2, out2, second);
-            login(in3, out3, third);
-            login(in4, out4, fourth);
+//            login(in1, out1, first);
+//            login(in2, out2, second);
+//            login(in3, out3, third);
+//            login(in4, out4, fourth);
 
 
             ArrayList<String> move;
@@ -155,7 +155,7 @@ public class FinalClientHandler implements Runnable {
             ClientHandler clientFour=clients.get(fourthInt - 1);
 
             clientOne.out.println("YOUR CHOICE");
-            String chosenDomino=yourChoice(clientOne, domToWrite, "1");
+            String chosenDomino=yourChoice(clientOne, domToWrite, first);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
             domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
@@ -164,7 +164,7 @@ public class FinalClientHandler implements Runnable {
             clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
 
             clientTwo.out.println("YOUR CHOICE");
-            chosenDomino=yourChoice(clientTwo, domToWrite, "2");
+            chosenDomino=yourChoice(clientTwo, domToWrite, second);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
             domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
@@ -173,7 +173,7 @@ public class FinalClientHandler implements Runnable {
             clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
 
             clientThree.out.println("YOUR CHOICE");
-            chosenDomino=yourChoice(clientThree, domToWrite, "3");
+            chosenDomino=yourChoice(clientThree, domToWrite, third);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
             domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
@@ -182,7 +182,7 @@ public class FinalClientHandler implements Runnable {
             clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
 
             clientFour.out.println("YOUR CHOICE");
-            chosenDomino=yourChoice(clientFour, domToWrite, "4");
+            chosenDomino=yourChoice(clientFour, domToWrite, fourth);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
             domToWriteInt.remove(Integer.valueOf(Integer.parseInt(chosenDomino)));
@@ -454,8 +454,6 @@ public class FinalClientHandler implements Runnable {
             }
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             out1.close();
             out2.close();
@@ -591,14 +589,7 @@ public class FinalClientHandler implements Runnable {
         return arr;
     }
 
-    private void login(BufferedReader in1, PrintWriter out1, String clientNumber) throws IOException {
-        String clientSentence1=in1.readLine();
-        if (!clientSentence1.matches("LOGIN " + "[a-zA-Z0-9]*")) {
-            out1.println("ERROR here");
-            errorCounter[Integer.parseInt(clientNumber) - 1]+=1;
-        } else out1.println("OK");
 
-    }
 
     private int startPrint(String first, String second, String third, String fourth, ArrayList<Integer> domToWriteInt, int index, PrintWriter out1, PrintWriter out2) {
         out1.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
@@ -623,10 +614,10 @@ public class FinalClientHandler implements Runnable {
             String chosenDomino=secSentence.split(" ")[1];
             return chosenDomino;
         } else {
-            clientOne.out.println("ERROR " + secSentence);
+            clientOne.out.println("ERROR");
             errorCounter[Integer.parseInt(clientNumber) - 1]+=1;
             ;
-            return secSentence;
+            return yourChoice(clientOne, domToWrite, clientNumber);
         }
     }
 

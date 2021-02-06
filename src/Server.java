@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +14,7 @@ public class Server {
     private static ExecutorService pool=Executors.newFixedThreadPool(5);
 
 
-    public static void main(String argv[]) throws IOException {
+    public static void main(String argv[]) throws IOException, InterruptedException {
         ServerSocket welcomeSocket=new ServerSocket(6666);
 
         while (true) {
@@ -21,12 +22,15 @@ public class Server {
             Socket client=welcomeSocket.accept();
 
             ClientHandler clientThread=new ClientHandler(client, clients);
-            clients.add(clientThread);
-            clientsSockets.add(client);
             pool.execute(clientThread);
+            clientsSockets.add(client);
+
             System.out.println(clients.size());
+            clients.add(clientThread);
             if (clients.size() == 4){
+                pool.awaitTermination(500, TimeUnit.MILLISECONDS);
                 FinalClientHandler finalClientThread=new FinalClientHandler(client, clients, clientsSockets);
+
                 pool.execute(finalClientThread);
             }
 

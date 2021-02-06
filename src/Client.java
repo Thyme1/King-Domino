@@ -29,10 +29,13 @@ public class Client {
 
 
         out.println(sentence);//LOGIN A
-        inFromServer.readLine();
-        inFromServer.readLine();
+        String connect = inFromServer.readLine();
+        System.out.println(connect);
+        String ok = inFromServer.readLine();
+        System.out.println(ok);
         String start=inFromServer.readLine();
-        System.out.println(start);
+        System.out.println(start + "start?");
+
 
         String[] str=start.split(" ");
         int clientNumber=Integer.parseInt(str[1]);

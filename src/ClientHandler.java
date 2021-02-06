@@ -30,10 +30,21 @@ public class ClientHandler implements Runnable {
     public void run() {
 
         out.println("CONNECT");
-
+        try {
+            login(in, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
+    private void login(BufferedReader in1, PrintWriter out1) throws IOException {
+        String clientSentence1=in1.readLine();
+        if (!clientSentence1.matches("LOGIN " + "[a-zA-Z0-9]*")) {
+            out1.println("ERROR");
+            login(in1, out1);
+        } else out1.println("OK");
 
+    }
 }
