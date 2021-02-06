@@ -126,9 +126,6 @@ public class FinalClientHandler implements Runnable {
             login(in4, out4, fourth);
 
 
-            String x;
-            String y;
-            String orientation;
             ArrayList<String> move;
             ArrayList<Integer> domPickedLastRoundInt=new ArrayList<>();
             ArrayList<Integer> domToWriteInt=new ArrayList<>();
@@ -296,15 +293,7 @@ public class FinalClientHandler implements Runnable {
                 System.out.println(); //Makes a new row
             }
 
-//            String[][] playerBoard = new String[4][2];
-//            playerBoard[0][0] = first;
-//            playerBoard[1][0] = second;
-//            playerBoard[2][0] = third;
-//            playerBoard[3][0] = fourth;
-//            playerBoard[0][1] = board1;
-//            playerBoard[1][2] = board2;
-//            playerBoard[2][3] = board3;
-//            playerBoard[3][4] = board4;
+
 
 
             for (int i=0; i < 10; i++) {
@@ -397,9 +386,7 @@ public class FinalClientHandler implements Runnable {
                 move=yourMove(clientOne,clientTwo, clientThree, clientFour, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1), first);
                 String chosenDomino=yourChoice(clientOne, domToWrite, first);
 
-                x=move.get(0);
-                y=move.get(1);
-                orientation=move.get(2);
+
 
 
 
@@ -423,9 +410,7 @@ public class FinalClientHandler implements Runnable {
 
 
                 move=yourMove(clientTwo, clientOne, clientThree, clientFour, boards.get(Integer.parseInt(second) - 1), third, bricks, bricksPickedLastRound.get(secondInt - 1), second);
-                x=move.get(0);
-                y=move.get(1);
-                orientation=move.get(2);
+
 
 
                 //print board2
@@ -447,9 +432,7 @@ public class FinalClientHandler implements Runnable {
                 clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
 
                 move=yourMove(clientThree, clientOne, clientTwo, clientFour, boards.get(Integer.parseInt(third) - 1), third, bricks, bricksPickedLastRound.get(thirdInt - 1), third);
-                x=move.get(0);
-                y=move.get(1);
-                orientation=move.get(2);
+
 
 
                 //print board3
@@ -471,9 +454,7 @@ public class FinalClientHandler implements Runnable {
                 clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
 
                 move=yourMove(clientFour, clientOne, clientTwo, clientThree, boards.get(Integer.parseInt(fourth) - 1), fourth, bricks, bricksPickedLastRound.get(fourthInt - 1), fourth);
-                x=move.get(0);
-                y=move.get(1);
-                orientation=move.get(2);
+
 
 
                 //print board4
@@ -515,6 +496,13 @@ public class FinalClientHandler implements Runnable {
             int board2points=countPoints(board2);
             int board3points=countPoints(board3);
             int board4points=countPoints(board4);
+
+            out1.println("GAME OVER RESULTS "+first+" "+board1points+" "+ second+" "+ board2points+" "+ third+" "+board3points+" "+fourth+" "+board4points);
+            out2.println("GAME OVER RESULTS "+first+" "+board1points+" "+ second+" "+ board2points+" "+ third+" "+board3points+" "+fourth+" "+board4points);
+            out3.println("GAME OVER RESULTS "+first+" "+board1points+" "+ second+" "+ board2points+" "+ third+" "+board3points+" "+fourth+" "+board4points);
+            out4.println("GAME OVER RESULTS "+first+" "+board1points+" "+ second+" "+ board2points+" "+ third+" "+board3points+" "+fourth+" "+board4points);
+
+
 
 
         } catch (IOException e) {

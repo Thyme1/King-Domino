@@ -80,20 +80,36 @@ public class Client {
 
             round=inFromServer.readLine(); //round
            System.out.println(round + " round" + i);
-
            splittedRound=round.split(" ");
 
        }
 
-//        sentence=inFromServer.readLine();
-//        System.out.println(sentence);
-//
-//        if (sentence.equals("YOUR MOVE")) {
-//            out.println("MOVE " + "0 " + "19" + " 90");
-//            sentence=inFromServer.readLine();
-//            System.out.println(sentence);}
-//
-//
+        for (int k=0; k < 8; k++) {
+            sentence=inFromServer.readLine();
+            System.out.println(sentence);
+
+            if (sentence.equals("YOUR MOVE")) {
+                out.println("MOVE " + "0 " + y + " 0");
+                sentence=inFromServer.readLine();
+                System.out.println(sentence);
+                y+=2;
+            }
+            if (sentence.equals("YOUR CHOICE")) {
+                out.println("CHOOSE " + splittedRound[clientNumber]);
+                sentence=inFromServer.readLine();
+                System.out.println(sentence);
+            }
+
+        }
+
+        sentence=inFromServer.readLine();
+        System.out.println(sentence);
+        sentence=inFromServer.readLine();
+        System.out.println(sentence);
+
+
+
+
 
 
 
