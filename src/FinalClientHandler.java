@@ -291,20 +291,25 @@ public class FinalClientHandler implements Runnable {
             }
 
 //#####################################################################################################################################################################################################
-            ArrayList<Integer> bricksPickedLastRound=null;
-            for (int p=0; p < 10; p++) {
-
-                System.out.println("DSIJIJDSIJSDIJiojsadiojdsaiojsda " + p);
+            
+            for (int p=0; p < 12; p++) {
 
 
-                domToWrite=pickDominos(dominos, random);
-                for (int j=0; j < domToWrite.size(); j++) {
-                    domToWriteInt.add(Integer.valueOf(domToWrite.get(j)));
+
+
+
+                if(p!=11){
+                    domToWrite=pickDominos(dominos, random);
+                    for (int j=0; j < domToWrite.size(); j++) {
+                        domToWriteInt.add(Integer.valueOf(domToWrite.get(j)));
+                    }
+                    Collections.sort(domToWriteInt);
+
+                    dominos=removePickedDominos(dominos, domToWrite);
+                    System.out.println(domPickedLastRound);
+
                 }
-                Collections.sort(domToWriteInt);
 
-                dominos=removePickedDominos(dominos, domToWrite);
-                System.out.println(domPickedLastRound);
 
                 order.add(first);
                 order.add(second);
@@ -318,15 +323,17 @@ public class FinalClientHandler implements Runnable {
                 for (int i=0; i < 4; i++) {
                     domPickedLastRound.remove(0);
                 }
+                if(p!=11){
+                    out1.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                    out2.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                    out3.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                    out4.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                }
 
-                out1.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
-                out2.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
-                out3.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
-                out4.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
 
                 System.out.println("PRZED: ");
                 System.out.println(domPickedLastRoundInt);
-                bricksPickedLastRound=new ArrayList<>(domPickedLastRoundInt);
+                ArrayList<Integer> bricksPickedLastRound=new ArrayList<>(domPickedLastRoundInt);
                 firstInt=domPickedLastRoundInt.indexOf(Collections.min(domPickedLastRoundInt)) + 1;
                 domPickedLastRoundInt.remove(Collections.min(domPickedLastRoundInt));
                 domPickedLastRoundInt.add(firstInt - 1, 50);
@@ -382,8 +389,23 @@ public class FinalClientHandler implements Runnable {
                 System.out.println(thirdInt);
                 System.out.println(fourthInt);
 
+                if(p==11){
+                    out1.println("ROUND");
+                    out2.println("ROUND");
+                    out3.println("ROUND");
+                    out4.println("ROUND");}
+
                 move=yourMove(clientOne, clientTwo, clientThree, clientFour, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1), first);
-                String chosenDomino=yourChoice(clientOne, domToWrite, first);
+
+                if(p!=11){
+                    String chosenDomino=yourChoice(clientOne, domToWrite, first);
+                    domPickedLastRound.add(chosenDomino);
+                    domToWrite.remove(chosenDomino);
+                    clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                    clientThree.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                    clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                }
+
 
 
                 //print board1
@@ -398,11 +420,8 @@ public class FinalClientHandler implements Runnable {
 //                //end print board1
 
 
-                domPickedLastRound.add(chosenDomino);
-                domToWrite.remove(chosenDomino);
-                clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
-                clientThree.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
-                clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                String chosenDomino=null;
+
 
 
                 move=yourMove(clientTwo, clientOne, clientThree, clientFour, boards.get(Integer.parseInt(second) - 1), third, bricks, bricksPickedLastRound.get(secondInt - 1), second);
@@ -418,13 +437,15 @@ public class FinalClientHandler implements Runnable {
 //                    System.out.println(); //Makes a new row
 //                }
 //                //end print board2
+                if(p!=11){
+                    chosenDomino=yourChoice(clientTwo, domToWrite, second);
+                    domPickedLastRound.add(chosenDomino);
+                    domToWrite.remove(chosenDomino);
+                    clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                    clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                    clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                }
 
-                chosenDomino=yourChoice(clientTwo, domToWrite, second);
-                domPickedLastRound.add(chosenDomino);
-                domToWrite.remove(chosenDomino);
-                clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
-                clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
-                clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
 
                 move=yourMove(clientThree, clientOne, clientTwo, clientFour, boards.get(Integer.parseInt(third) - 1), third, bricks, bricksPickedLastRound.get(thirdInt - 1), third);
 
@@ -440,12 +461,17 @@ public class FinalClientHandler implements Runnable {
 //                }
 //                //end print board3
 
-                chosenDomino=yourChoice(clientThree, domToWrite, third);
-                domPickedLastRound.add(chosenDomino);
-                domToWrite.remove(chosenDomino);
-                clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
-                clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
-                clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                if(p!=11){
+                    chosenDomino=yourChoice(clientThree, domToWrite, third);
+                    domPickedLastRound.add(chosenDomino);
+                    domToWrite.remove(chosenDomino);
+                    clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                    clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                    clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+
+                }
+
+
 
                 move=yourMove(clientFour, clientOne, clientTwo, clientThree, boards.get(Integer.parseInt(fourth) - 1), fourth, bricks, bricksPickedLastRound.get(fourthInt - 1), fourth);
 
@@ -461,13 +487,18 @@ public class FinalClientHandler implements Runnable {
 //                }
 //                //end print board4
 
-                chosenDomino=yourChoice(clientFour, domToWrite, fourth);
-                domPickedLastRound.add(chosenDomino);
-                domToWrite.remove(chosenDomino);
-                clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
-                clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
-                clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                if(p!=11){
+                    chosenDomino=yourChoice(clientFour, domToWrite, fourth);
+                    domPickedLastRound.add(chosenDomino);
+                    domToWrite.remove(chosenDomino);
+                    clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                    clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                    clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
 
+                }
+
+
+                if(p!=11){
                 for (int i=0; i < 4; i++) {
                     domPickedLastRoundInt.remove(0);
                     clientsChange.remove(0);
@@ -475,31 +506,29 @@ public class FinalClientHandler implements Runnable {
                 }
                 for (int i=0; i < 4; i++) {
                     domToWriteInt.remove(0);
+                }}
+
+                if(p==11){
+
+
+                    int board1points=countPoints(board1);
+                    int board2points=countPoints(board2);
+                    int board3points=countPoints(board3);
+                    int board4points=countPoints(board4);
+
+                    out1.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    out2.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    out3.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    out4.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
                 }
 
 
             }
 
-            move=yourMove(clientOne, clientTwo, clientThree, clientFour, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1), first);
-            move=yourMove(clientTwo, clientOne, clientThree, clientFour, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1), first);
-            move=yourMove(clientThree, clientTwo, clientOne, clientFour, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1), first);
-            move=yourMove(clientFour, clientTwo, clientThree, clientOne, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1), first);
+            
 
 
-            out1.println("ROUND");
-            out2.println("ROUND");
-            out3.println("ROUND");
-            out4.println("ROUND");
 
-            int board1points=countPoints(board1);
-            int board2points=countPoints(board2);
-            int board3points=countPoints(board3);
-            int board4points=countPoints(board4);
-
-            out1.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-            out2.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-            out3.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-            out4.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
 
 
         } catch (IOException e) {

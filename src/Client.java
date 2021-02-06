@@ -54,7 +54,7 @@ public class Client {
 
 //###############################################################
         int y=1;
-       for(int i =0;i<10;i++) {
+       for(int i =0;i<11;i++) {
 //           System.out.println(i + " - iteracja i");
 
            for (int k=0; k < 8; k++) {
@@ -78,13 +78,15 @@ public class Client {
 
            }
 
+           if(i!=10){
+
             round=inFromServer.readLine(); //round
            System.out.println(round + " round" + i);
            splittedRound=round.split(" ");
 
-       }
+       }}
 
-        for (int k=0; k < 8; k++) {
+        for (int h=0; h < 5; h++) {
             sentence=inFromServer.readLine();
             System.out.println(sentence);
 
@@ -92,15 +94,14 @@ public class Client {
                 out.println("MOVE " + "0 " + y + " 0");
                 sentence=inFromServer.readLine();
                 System.out.println(sentence);
-                y+=2;
+
             }
 
         }
+        sentence=inFromServer.readLine();
+        System.out.println(sentence);
 
-        sentence=inFromServer.readLine();
-        System.out.println(sentence);
-        sentence=inFromServer.readLine();
-        System.out.println(sentence);
+
 
 
 
