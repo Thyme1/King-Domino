@@ -55,11 +55,11 @@ public class Client {
 //###############################################################
         int y=1;
        for(int i =0;i<10;i++) {
-           System.out.println(i + " - iteracja i");
+//           System.out.println(i + " - iteracja i");
 
            for (int k=0; k < 8; k++) {
-               System.out.println(i + " - iteracja i w k");
-               System.out.println(k + " - iteracja k");
+//               System.out.println(i + " - iteracja i w k");
+//               System.out.println(k + " - iteracja k");
 
                sentence=inFromServer.readLine();
                System.out.println(sentence);
@@ -93,11 +93,6 @@ public class Client {
                 sentence=inFromServer.readLine();
                 System.out.println(sentence);
                 y+=2;
-            }
-            if (sentence.equals("YOUR CHOICE")) {
-                out.println("CHOOSE " + splittedRound[clientNumber]);
-                sentence=inFromServer.readLine();
-                System.out.println(sentence);
             }
 
         }
