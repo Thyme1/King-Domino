@@ -47,25 +47,53 @@ public class Client {
 
         }
         sentence = inFromServer.readLine(); //player4/ok
-        System.out.println(sentence + " last");
-
+        System.out.println(sentence + " last"); //player4/ok
 
         String round=inFromServer.readLine(); //round
-        System.out.println(round);
-        int y=1;
         String[] splittedRound=round.split(" ");
-        sentence = inFromServer.readLine();
-        System.out.println(sentence + " jo");
 
-        out.println("MOVE 0 1 90");
-        out.println("MOVE 0 1 90");
-        out.println("MOVE 0 1 90");
+//###############################################################
+        int y=1;
+       for(int i =0;i<10;i++) {
+           System.out.println(i + " - iteracja i");
 
-        sentence = inFromServer.readLine();
-        System.out.println(sentence + " SA");
-        y+=2;
-        out.println("CHOOSE " + splittedRound[clientNumber]);
+           for (int k=0; k < 8; k++) {
+               System.out.println(i + " - iteracja i w k");
+               System.out.println(k + " - iteracja k");
 
+               sentence=inFromServer.readLine();
+               System.out.println(sentence);
+
+               if (sentence.equals("YOUR MOVE")) {
+                   out.println("MOVE " + "0 " + y + " 0");
+                   sentence=inFromServer.readLine();
+                   System.out.println(sentence);
+                   y+=2;
+               }
+               if (sentence.equals("YOUR CHOICE")) {
+                   out.println("CHOOSE " + splittedRound[clientNumber]);
+                   sentence=inFromServer.readLine();
+                   System.out.println(sentence);
+               }
+
+           }
+
+            round=inFromServer.readLine(); //round
+           System.out.println(round + " round" + i);
+
+           splittedRound=round.split(" ");
+
+       }
+
+//        sentence=inFromServer.readLine();
+//        System.out.println(sentence);
+//
+//        if (sentence.equals("YOUR MOVE")) {
+//            out.println("MOVE " + "0 " + "19" + " 90");
+//            sentence=inFromServer.readLine();
+//            System.out.println(sentence);}
+//
+//
 
 
 
