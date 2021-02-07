@@ -23,6 +23,7 @@ public class FinalClientHandler implements Runnable {
     int[] errorCounter={0, 0, 0, 0};
 
 
+
     public FinalClientHandler(Socket client, ArrayList<ClientHandler> clients, ArrayList<Socket> clientsSocket) throws IOException {
         this.client=client;
         this.clients=clients;
@@ -44,12 +45,42 @@ public class FinalClientHandler implements Runnable {
 
 
 
+
+
+
     }
 
     @Override
     public void run() {
 
         try {
+
+            BufferedReader reader=new BufferedReader(new FileReader("logins.txt"));
+            String line;
+            String login1=null;
+            String login2=null;
+            String login3=null;
+            String login4=null;
+
+
+                line=reader.readLine();
+                System.out.println(line);
+                login1 = line;
+                line=reader.readLine();
+                login2=line;
+                line=reader.readLine();
+                login3 = line;
+                line=reader.readLine();
+                login4 = line;
+
+            File loginsFile=new File("logins.txt");
+            try {
+                FileWriter fileWriter2=new FileWriter(loginsFile, false);
+                PrintWriter printWriter2=new PrintWriter(fileWriter2);
+                printWriter2.close();
+            } catch (IOException e) {
+                e.printStackTrace();}
+
             String[] brick1={"s", "s"};
             String[] brick2={"s", "s"};
             String[] brick3={"f", "f"};
@@ -450,37 +481,49 @@ public class FinalClientHandler implements Runnable {
                     int board3points=countPoints(board3);
                     int board4points=countPoints(board4);
 
-                    out1.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    out2.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    out3.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    out4.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
-                    printWriter.close();
+                    out1.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
+                    out2.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
+                    out3.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
+                    out4.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + login1 + " " + board1points + " " + login2 + " " + board2points + " " + login3 + " " + board3points + " " + login4 + " " + board4points);
                 }
 
 
             }
 
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             out1.close();
             out2.close();
             out3.close();
             out4.close();
+            printWriter.close();
+
+            }
+
+
+
             try {
                 in1.close();
                 in2.close();
                 in3.close();
                 in4.close();
+                printWriter.close();
+
 
             } catch (IOException e) {
+                printWriter.close();
                 e.printStackTrace();
             }
         }
-    }
+
 
     private int countPoints(String[][] board1) {
 
