@@ -115,11 +115,10 @@ public class Client {
 
         new Thread(serverConn).start();
 
-        while (x > 0) {
-
-
+        if(sentence.matches("GAME OVER" + '*')){
+            clientSocket.close();
+            System.exit(0);
         }
-        clientSocket.close();
-        System.exit(0);
+
     }
 }
