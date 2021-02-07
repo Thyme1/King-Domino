@@ -23,7 +23,6 @@ public class FinalClientHandler implements Runnable {
     int[] errorCounter={0, 0, 0, 0};
 
 
-
     public FinalClientHandler(Socket client, ArrayList<ClientHandler> clients, ArrayList<Socket> clientsSocket) throws IOException {
         this.client=client;
         this.clients=clients;
@@ -39,13 +38,9 @@ public class FinalClientHandler implements Runnable {
 
         in4=new BufferedReader(new InputStreamReader(clientsSocket.get(3).getInputStream()));
         out4=new PrintWriter(clientsSocket.get(3).getOutputStream(), true);
-        file = new File("app.log");
-        FileWriter fileWriter = new FileWriter(file, true);
-        printWriter = new PrintWriter(fileWriter);
-
-
-
-
+        file=new File("app.log");
+        FileWriter fileWriter=new FileWriter(file, true);
+        printWriter=new PrintWriter(fileWriter);
 
 
     }
@@ -63,15 +58,15 @@ public class FinalClientHandler implements Runnable {
             String login4=null;
 
 
-                line=reader.readLine();
-                System.out.println(line);
-                login1 = line;
-                line=reader.readLine();
-                login2=line;
-                line=reader.readLine();
-                login3 = line;
-                line=reader.readLine();
-                login4 = line;
+            line=reader.readLine();
+            System.out.println(line);
+            login1=line;
+            line=reader.readLine();
+            login2=line;
+            line=reader.readLine();
+            login3=line;
+            line=reader.readLine();
+            login4=line;
 
             File loginsFile=new File("logins.txt");
             try {
@@ -79,7 +74,8 @@ public class FinalClientHandler implements Runnable {
                 PrintWriter printWriter2=new PrintWriter(fileWriter2);
                 printWriter2.close();
             } catch (IOException e) {
-                e.printStackTrace();}
+                e.printStackTrace();
+            }
 
             String[] brick1={"s", "s"};
             String[] brick2={"s", "s"};
@@ -150,7 +146,6 @@ public class FinalClientHandler implements Runnable {
             int secondInt=Integer.parseInt(second);
             int thirdInt=Integer.parseInt(third);
             int fourthInt=Integer.parseInt(fourth);
-
 
 
             ArrayList<String> move;
@@ -265,7 +260,6 @@ public class FinalClientHandler implements Runnable {
             boards.add(board2);
             boards.add(board3);
             boards.add(board4);
-
 
 
 //#####################################################################################################################################################################################################
@@ -386,7 +380,7 @@ public class FinalClientHandler implements Runnable {
                 if (p != 11) {
                     clientOne.out.println("YOUR CHOICE");
                     printWriter.println("YOUR CHOICE");
-                     chosenDomino=yourChoice(clientOne, domToWrite, first);
+                    chosenDomino=yourChoice(clientOne, domToWrite, first);
                     domPickedLastRound.add(chosenDomino);
                     domToWrite.remove(chosenDomino);
                     clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
@@ -396,8 +390,6 @@ public class FinalClientHandler implements Runnable {
                     printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
                     printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
                 }
-
-
 
 
                 clientTwo.out.println("YOUR MOVE");
@@ -459,7 +451,6 @@ public class FinalClientHandler implements Runnable {
                     printWriter.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
 
 
-
                 }
 
 
@@ -506,63 +497,73 @@ public class FinalClientHandler implements Runnable {
             out4.close();
             printWriter.close();
 
-            }
-
-
-
-            try {
-                in1.close();
-                in2.close();
-                in3.close();
-                in4.close();
-                printWriter.close();
-
-
-            } catch (IOException e) {
-                printWriter.close();
-                e.printStackTrace();
-            }
         }
+
+
+        try {
+            in1.close();
+            in2.close();
+            in3.close();
+            in4.close();
+            printWriter.close();
+
+
+        } catch (IOException e) {
+            printWriter.close();
+            e.printStackTrace();
+        }
+    }
 
 
     private int countPoints(String[][] board1) {
 
-//        int pointsG=countPointsForType("g", board1);
-//        int pointsF=countPointsForType("f", board1);
-//        int pointsS=countPointsForType("s", board1);
-//        int pointsB=countPointsForType("b", board1);
-//        int pointsW=countPointsForType("w", board1);
-//        int pointsM=countPointsForType("m", board1);
+        int pointsG=countPointsForType("g", board1);
+        int pointsF=countPointsForType("f", board1);
+        int pointsS=countPointsForType("s", board1);
+        int pointsB=countPointsForType("b", board1);
+        int pointsW=countPointsForType("w", board1);
+        int pointsM=countPointsForType("m", board1);
 
-        return (12);
+        return (pointsG + pointsF + pointsS + pointsB + pointsW + pointsM);
     }
 
-    private int countPointsForType(String fieldType, String[][] board1) {
+    private static int countPointsForType(String fieldType, String[][] board1) {
         ArrayList<ArrayList<Integer>> result=new ArrayList<>();
         String[][] board1Copy=new String[201][201];
         for (int i=0; i < board1.length; i++)
             for (int j=0; j < board1[i].length; j++)
-                board1[i][j]=board1Copy[i][j];
+                board1Copy[i][j]=board1[i][j];
+
 
         result=setLabels(fieldType, board1Copy);
 
-        int m=result.get(2).get(0);
+
+        Integer m;
+
+
+        if (!(result.get(0).size() == (0))) {
+            m=result.get(0).get(0);
+        } else m=1;
         ArrayList<Integer> numOfLabels=result.get(0);
-        ArrayList<Integer> valueOfLabels=result.get(1);
-        int points=0;
+        ArrayList<Integer> valueOfLabels=result.get(0);
+        int points=2;
 
         for (int j=1; j <= m; j++) {
-            points+=numOfLabels.get(j - 1) * valueOfLabels.get(j - 1);
+            if (!(numOfLabels.size() == 0)) {
+                points=1;
+                points+=numOfLabels.get(0) * valueOfLabels.get(0);
+            }
         }
+
 
         return points;
 
     }
 
-    private ArrayList<ArrayList<Integer>> setLabels(String fieldType, String[][] board1Copy) {
+    private static ArrayList<ArrayList<Integer>> setLabels(String fieldType, String[][] board1Copy) {
         ArrayList<ArrayList<Integer>> result=new ArrayList<>();
         ArrayList<Integer> mValue=new ArrayList<>();
-        int m=0;
+        int m=1;
         for (int y=0; y < 201; y++)
             for (int x=0; x < 201; x++) {
                 if (board1Copy[x][y].matches(fieldType)) {
@@ -578,10 +579,11 @@ public class FinalClientHandler implements Runnable {
         mValue.add(m);
         result.add(mValue);
 
+
         return result;
     }
 
-    private ArrayList<ArrayList<Integer>> compLabelExtra(int x, int y, String[][] board1Copy, int m) {
+    private static ArrayList<ArrayList<Integer>> compLabelExtra(int x, int y, String[][] board1Copy, int m) {
         ArrayList<Integer> values=new ArrayList<>();
         ArrayList<Integer> multiplyBy=new ArrayList<>();
         ArrayList<ArrayList<Integer>> result=new ArrayList<>();
@@ -621,7 +623,7 @@ public class FinalClientHandler implements Runnable {
     }
 
 
-    private String[][] compLabel(int i, int j, int m, String[][] board1Copy, String fieldType) {
+    private static String[][] compLabel(int i, int j, int m, String[][] board1Copy, String fieldType) {
 
         if (board1Copy[i][j].matches(fieldType)) {
             board1Copy=setPixel(board1Copy, i, j, m);
@@ -633,7 +635,7 @@ public class FinalClientHandler implements Runnable {
         return board1Copy;
     }
 
-    private String[][] setPixel(String[][] board1Copy, int i, int j, int m) {
+    private static String[][] setPixel(String[][] board1Copy, int i, int j, int m) {
         board1Copy[i][j]=String.valueOf(m);
         return board1Copy;
     }
@@ -644,7 +646,6 @@ public class FinalClientHandler implements Runnable {
     }
 
 
-
     private int startPrint(String first, String second, String third, String fourth, ArrayList<Integer> domToWriteInt, int index, PrintWriter out1, PrintWriter out2) {
         out1.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
         printWriter.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
@@ -653,7 +654,6 @@ public class FinalClientHandler implements Runnable {
         printWriter.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
         return index;
     }
-
 
 
     private String yourChoice(ClientHandler clientOne, ArrayList<String> domToWrite, String clientNumber) {
@@ -668,14 +668,14 @@ public class FinalClientHandler implements Runnable {
             e.printStackTrace();
         }
 
-        if (splittedChoice[0].matches("CHOOSE")){
-            if (domToWrite.contains(splittedChoice[1])){
+        if (splittedChoice[0].matches("CHOOSE")) {
+            if (domToWrite.contains(splittedChoice[1])) {
                 clientOne.out.println("OK");
                 printWriter.println("OK");
                 String chosenDomino=secSentence.split(" ")[1];
                 return chosenDomino;
             }
-        } else{
+        } else {
             clientOne.out.println("ERROR");
             printWriter.println("ERROR");
             errorCounter[Integer.parseInt(clientNumber) - 1]+=1;
@@ -737,16 +737,16 @@ public class FinalClientHandler implements Runnable {
 
                 board[x_coorInt][y_coorInt]=bricks[chosenDomino - 1][0];
                 if (orientation.equals("0")) {
-                    board[x_coorInt+1][y_coorInt]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt + 1][y_coorInt]=bricks[chosenDomino - 1][1];
                 }
                 if (orientation.equals("90")) {
-                    board[x_coorInt][y_coorInt+1]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt][y_coorInt + 1]=bricks[chosenDomino - 1][1];
                 }
                 if (orientation.equals("180")) {
-                    board[x_coorInt-1][y_coorInt]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt - 1][y_coorInt]=bricks[chosenDomino - 1][1];
                 }
                 if (orientation.equals("270")) {
-                    board[x_coorInt][y_coorInt-1]=bricks[chosenDomino - 1][1];
+                    board[x_coorInt][y_coorInt - 1]=bricks[chosenDomino - 1][1];
                 }
 
                 return result;
