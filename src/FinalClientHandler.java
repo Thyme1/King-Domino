@@ -780,7 +780,7 @@ public class FinalClientHandler implements Runnable {
             if (!board[x][y + 1].equals("0")) {
                 return true;
             } else {
-                return (board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x][y - 1].equals("0") && board[x][y -1].equals("0") && board[x - 1][y + 1].equals("0") && board[x][y +2].equals("0"));
+                return (board[x][y-1].equals("0") && board[x + 1][y].equals("0") && board[x-1][y].equals("0") && board[x-1][y +1].equals("0") && board[x + 1][y + 1].equals("0") && board[x][y +2].equals("0"));
             }
         } else if (orientation == 0) {
             if (!board[x + 1][y].equals("0")) {
