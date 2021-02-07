@@ -50,7 +50,7 @@ public class ClientHandler implements Runnable {
     private void login(BufferedReader in1, PrintWriter out1, PrintWriter printWriter) throws IOException {
         String clientSentence1=in1.readLine();
         printWriter.println(clientSentence1);
-        if (!clientSentence1.matches("LOGIN " + "[a-zA-Z0-9]*")) {
+        if (!clientSentence1.matches("LOGIN " + ".*")) {
             out1.println("ERROR");
             printWriter.println("ERROR");
             login(in1, out1, printWriter);
