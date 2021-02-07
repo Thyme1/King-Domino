@@ -546,7 +546,7 @@ public class FinalClientHandler implements Runnable {
         } else m=1;
         ArrayList<Integer> numOfLabels=result.get(0);
         ArrayList<Integer> valueOfLabels=result.get(0);
-        int points=2;
+        int points=1;
 
         for (int j=1; j <= m; j++) {
             if (!(numOfLabels.size() == 0)) {
@@ -780,25 +780,25 @@ public class FinalClientHandler implements Runnable {
             if (!board[x][y + 1].equals("0")) {
                 return true;
             } else {
-                return (board[x - 1][y].equals("0") && board[x + 2][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 1][y + 1].equals("0"));
+                return (board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x][y - 1].equals("0") && board[x][y -1].equals("0") && board[x - 1][y + 1].equals("0") && board[x][y +2].equals("0"));
             }
         } else if (orientation == 0) {
             if (!board[x + 1][y].equals("0")) {
                 return true;
             } else {
-                return (board[x - 1][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 2][y].equals("0"));
+                return (board[x - 1][y].equals("0") && board[x][y-1].equals("0") && board[x][y + 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x + 1][y + 1].equals("0") && board[x + 2][y].equals("0"));
             }
         } else if (orientation == 270) {
             if (!board[x][y - 1].equals("0")) {
                 return true;
             } else {
-                return (board[x][y + 1].equals("0") && board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x + 1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x][y - 2].equals("0"));
+                return (board[x][y + 1].equals("0") && board[x - 1][y].equals("0") && board[x + 1][y].equals("0") && board[x -1][y - 1].equals("0") && board[x + 1][y - 1].equals("0") && board[x][y - 2].equals("0"));
             }
         } else if (orientation == 180) {
             if (!board[x - 1][y].equals("0")) {
                 return true;
             } else {
-                return (board[x + 1][y].equals("0") && board[x][y - 1].equals("0") && board[x][y + 1].equals("0") && board[x - 1][y + 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x - 2][y].equals("0"));
+                return (board[x + 1][y].equals("0") && board[x-2][y].equals("0") && board[x][y + 1].equals("0") && board[x][y - 1].equals("0") && board[x - 1][y - 1].equals("0") && board[x -1][y+1].equals("0"));
             }
         } else
             return false;
