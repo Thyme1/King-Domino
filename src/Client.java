@@ -10,7 +10,7 @@ public class Client {
     public static void main(String argv[]) throws IOException {
 
 
-        Socket clientSocket=new Socket("localhost", 6666);
+        Socket clientSocket=new Socket("localhost", 6667);
         ServerConnection serverConn=new ServerConnection(clientSocket);
         int x=2;
         String serverResponse;
@@ -20,8 +20,7 @@ public class Client {
         char login=abc.charAt(r.nextInt(abc.length()));
         String sentence="LOGIN " + login;
 
-        InputStream targetStream=new ByteArrayInputStream(sentence.getBytes());
-        BufferedReader in=new BufferedReader(new InputStreamReader(targetStream));
+
         PrintWriter out=new PrintWriter(clientSocket.getOutputStream(), true); //to jest to co klient przekazuje do serwera
 
 

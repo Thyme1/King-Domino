@@ -15,7 +15,7 @@ public class Server {
 
 
     public static void main(String argv[]) throws IOException, InterruptedException {
-        ServerSocket welcomeSocket=new ServerSocket(6666);
+        ServerSocket welcomeSocket=new ServerSocket(6667);
 
         while (true) {
 

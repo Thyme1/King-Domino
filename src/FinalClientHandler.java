@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +17,8 @@ public class FinalClientHandler implements Runnable {
     private BufferedReader in4;
     private PrintWriter out4;
     private ArrayList<ClientHandler> clients;
+    private File file;
+    private PrintWriter printWriter;
     private ArrayList<Socket> clientsSocket;
     int[] errorCounter={0, 0, 0, 0};
 
@@ -39,6 +38,11 @@ public class FinalClientHandler implements Runnable {
 
         in4=new BufferedReader(new InputStreamReader(clientsSocket.get(3).getInputStream()));
         out4=new PrintWriter(clientsSocket.get(3).getOutputStream(), true);
+        file = new File("app.log");
+        FileWriter fileWriter = new FileWriter(file, true);
+        printWriter = new PrintWriter(fileWriter);
+
+
 
     }
 
@@ -155,6 +159,7 @@ public class FinalClientHandler implements Runnable {
             ClientHandler clientFour=clients.get(fourthInt - 1);
 
             clientOne.out.println("YOUR CHOICE");
+            printWriter.println("YOUR CHOICE");
             String chosenDomino=yourChoice(clientOne, domToWrite, first);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
@@ -162,8 +167,13 @@ public class FinalClientHandler implements Runnable {
             clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
             clientThree.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
             clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
+
 
             clientTwo.out.println("YOUR CHOICE");
+            printWriter.println("YOUR CHOICE");
             chosenDomino=yourChoice(clientTwo, domToWrite, second);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
@@ -171,8 +181,12 @@ public class FinalClientHandler implements Runnable {
             clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
             clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
             clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + second + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + second + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + second + " " + chosenDomino);
 
             clientThree.out.println("YOUR CHOICE");
+            printWriter.println("YOUR CHOICE");
             chosenDomino=yourChoice(clientThree, domToWrite, third);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
@@ -180,8 +194,12 @@ public class FinalClientHandler implements Runnable {
             clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
             clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
             clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + third + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + third + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + third + " " + chosenDomino);
 
             clientFour.out.println("YOUR CHOICE");
+            printWriter.println("YOUR CHOICE");
             chosenDomino=yourChoice(clientFour, domToWrite, fourth);
             domPickedLastRound.add(chosenDomino);
             domToWrite.remove(chosenDomino);
@@ -189,6 +207,9 @@ public class FinalClientHandler implements Runnable {
             clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
             clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
             clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+            printWriter.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
 
 
             ArrayList<String> order=new ArrayList<>();
@@ -252,6 +273,10 @@ public class FinalClientHandler implements Runnable {
                     out2.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
                     out3.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
                     out4.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                    printWriter.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                    printWriter.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                    printWriter.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+                    printWriter.println("ROUND " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
                 }
 
 
@@ -318,19 +343,28 @@ public class FinalClientHandler implements Runnable {
                     out2.println("ROUND");
                     out3.println("ROUND");
                     out4.println("ROUND");
+                    printWriter.println("ROUND");
+                    printWriter.println("ROUND");
+                    printWriter.println("ROUND");
+                    printWriter.println("ROUND");
                 }
 
                 clientOne.out.println("YOUR MOVE");
+                printWriter.println("YOUR MOVE");
                 move=yourMove(clientOne, clientTwo, clientThree, clientFour, boards.get(Integer.parseInt(first) - 1), first, bricks, bricksPickedLastRound.get(firstInt - 1), first);
 
                 if (p != 11) {
                     clientOne.out.println("YOUR CHOICE");
+                    printWriter.println("YOUR CHOICE");
                      chosenDomino=yourChoice(clientOne, domToWrite, first);
                     domPickedLastRound.add(chosenDomino);
                     domToWrite.remove(chosenDomino);
                     clientTwo.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
                     clientThree.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
                     clientFour.out.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + first + " " + chosenDomino);
                 }
 
 
@@ -349,6 +383,7 @@ public class FinalClientHandler implements Runnable {
 
 
                 clientTwo.out.println("YOUR MOVE");
+                printWriter.println("YOUR MOVE");
                 move=yourMove(clientTwo, clientOne, clientThree, clientFour, boards.get(Integer.parseInt(second) - 1), third, bricks, bricksPickedLastRound.get(secondInt - 1), second);
 
 
@@ -364,15 +399,20 @@ public class FinalClientHandler implements Runnable {
 //                //end print board2
                 if (p != 11) {
                     clientTwo.out.println("YOUR CHOICE");
+                    printWriter.println("YOUR CHOICE");
                     chosenDomino=yourChoice(clientTwo, domToWrite, second);
                     domPickedLastRound.add(chosenDomino);
                     domToWrite.remove(chosenDomino);
                     clientOne.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                     clientThree.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
                     clientFour.out.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + second + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + second + " " + chosenDomino);
                 }
 
                 clientThree.out.println("YOUR MOVE");
+                printWriter.println("YOUR MOVE");
                 move=yourMove(clientThree, clientOne, clientTwo, clientFour, boards.get(Integer.parseInt(third) - 1), third, bricks, bricksPickedLastRound.get(thirdInt - 1), third);
 
 
@@ -389,17 +429,22 @@ public class FinalClientHandler implements Runnable {
 
                 if (p != 11) {
                     clientThree.out.println("YOUR CHOICE");
+                    printWriter.println("YOUR CHOICE");
                     chosenDomino=yourChoice(clientThree, domToWrite, third);
                     domPickedLastRound.add(chosenDomino);
                     domToWrite.remove(chosenDomino);
                     clientOne.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                     clientTwo.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
                     clientFour.out.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + third + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + third + " " + chosenDomino);
 
                 }
 
 
                 clientFour.out.println("YOUR MOVE");
+                printWriter.println("YOUR MOVE");
                 move=yourMove(clientFour, clientOne, clientTwo, clientThree, boards.get(Integer.parseInt(fourth) - 1), fourth, bricks, bricksPickedLastRound.get(fourthInt - 1), fourth);
 
 
@@ -416,12 +461,18 @@ public class FinalClientHandler implements Runnable {
 
                 if (p != 11) {
                     clientFour.out.println("YOUR CHOICE");
+                    printWriter.println("YOUR CHOICE");
                     chosenDomino=yourChoice(clientFour, domToWrite, fourth);
                     domPickedLastRound.add(chosenDomino);
                     domToWrite.remove(chosenDomino);
                     clientOne.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
                     clientThree.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
                     clientTwo.out.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+                    printWriter.println("PLAYER CHOICE " + fourth + " " + chosenDomino);
+
+
 
                 }
 
@@ -448,6 +499,11 @@ public class FinalClientHandler implements Runnable {
                     out2.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
                     out3.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
                     out4.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    printWriter.println("GAME OVER RESULTS " + first + " " + board1points + " " + second + " " + board2points + " " + third + " " + board3points + " " + fourth + " " + board4points);
+                    printWriter.close();
                 }
 
 
@@ -593,8 +649,10 @@ public class FinalClientHandler implements Runnable {
 
     private int startPrint(String first, String second, String third, String fourth, ArrayList<Integer> domToWriteInt, int index, PrintWriter out1, PrintWriter out2) {
         out1.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+        printWriter.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
         index++;
         out2.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
+        printWriter.println("START " + index + " " + first + " " + second + " " + third + " " + fourth + " " + domToWriteInt.get(0) + " " + domToWriteInt.get(1) + " " + domToWriteInt.get(2) + " " + domToWriteInt.get(3));
         return index;
     }
 
@@ -605,16 +663,19 @@ public class FinalClientHandler implements Runnable {
         String secSentence=null;
         try {
             secSentence=clientOne.in.readLine();
+            printWriter.println(secSentence);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if (secSentence.equals("CHOOSE " + domToWrite.get(0)) || secSentence.equals("CHOOSE " + domToWrite.get(1)) || secSentence.equals("CHOOSE " + domToWrite.get(2)) || secSentence.equals("CHOOSE " + domToWrite.get(3))) { //CHANGE LATER TO MATCH ONLY DOMINOS
             clientOne.out.println("OK");
+            printWriter.println("OK");
             String chosenDomino=secSentence.split(" ")[1];
             return chosenDomino;
         } else {
             clientOne.out.println("ERROR");
+            printWriter.println("ERROR");
             errorCounter[Integer.parseInt(clientNumber) - 1]+=1;
             ;
             return yourChoice(clientOne, domToWrite, clientNumber);
@@ -627,6 +688,7 @@ public class FinalClientHandler implements Runnable {
         String secSentence=null;
         try {
             secSentence=clientOne.in.readLine();
+            printWriter.println(secSentence);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -649,9 +711,13 @@ public class FinalClientHandler implements Runnable {
             } else if (secSentence.equals("MOVE " + x_coor + " " + y_coor + " " + orientation)) {
 
                 clientOne.out.println("OK");
+                printWriter.println("OK");
                 clientTwo.out.println("PLAYER MOVE " + first + ' ' + x_coor + " " + y_coor + " " + orientation);
                 clientThree.out.println("PLAYER MOVE " + first + " " + x_coor + " " + y_coor + " " + orientation);
                 clientFour.out.println("PLAYER MOVE " + first + " " + x_coor + " " + y_coor + " " + orientation);
+                printWriter.println("PLAYER MOVE " + first + ' ' + x_coor + " " + y_coor + " " + orientation);
+                printWriter.println("PLAYER MOVE " + first + ' ' + x_coor + " " + y_coor + " " + orientation);
+                printWriter.println("PLAYER MOVE " + first + ' ' + x_coor + " " + y_coor + " " + orientation);
                 result.add(x_coor);
                 result.add(y_coor);
                 result.add(orientation);
@@ -682,12 +748,14 @@ public class FinalClientHandler implements Runnable {
 
             } else {
                 clientOne.out.println("ERROR");
+                printWriter.println("ERROR");
                 errorCounter[Integer.parseInt(clientNumber) - 1]+=1;
                 return yourMove(clientOne, clientTwo, clientThree, clientFour, board, clientNumber, bricks, chosenDomino, first);
             }
 
         } else {
             clientOne.out.println("ERROR");
+            printWriter.println("ERROR");
             errorCounter[Integer.parseInt(clientNumber) - 1]+=1;
             return yourMove(clientOne, clientTwo, clientThree, clientFour, board, clientNumber, bricks, chosenDomino, first);
         }
