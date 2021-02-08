@@ -546,7 +546,7 @@ public class FinalClientHandler implements Runnable {
         } else m=1;
         ArrayList<Integer> numOfLabels=result.get(0);
         ArrayList<Integer> valueOfLabels=result.get(0);
-        int points=1;
+        int points=5;
 
         for (int j=1; j <= m; j++) {
             if (!(numOfLabels.size() == 0)) {
